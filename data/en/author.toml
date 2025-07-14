@@ -1,0 +1,20 @@
+[author]
+  name = "Axat Bhardwaj"
+  location = "Delhi, India"
+  description = "A passionate Blockchain and Backend Developer focusing on creating robust and scalable decentralized applications and backend systems."
+  profile_image = "/images/profile.jpg"
+  email = "axatbhardwaj@gmail.com"
+  github = "https://github.com/axatbhardwaj"
+  linkedin = "https://linkedin.com/in/axatbhardwaj"
+  twitter = "https://twitter.com/axatbhardwaj"
+  honors = [
+    { institution = "Solulab Inc.", title = "Gas Optimization", date = "March 2022", description = "Reduced a contract's gas fee by 50%, saving the client over $10,000 yearly." },
+    { institution = "Solulab Inc.", title = "Employee Of the Month", date = "November 2021" },
+    { institution = "AICTE", title = "Vishwakarma Awards - National Level", date = "2019" }
+  ]
+  certifications = [
+    { title = "Ethereum Blockchain Developer Bootcamp With Solidity", company = "Udemy" },
+    { title = "Introduction to EOSIO (Technical & Non-technical)", company = "EOSIO" },
+    { title = "Blockchain Basics", company = "Coursera - University of Buffalo" },
+    { title = "Metaverse Masterclass", company = "Udemy" }
+  ]

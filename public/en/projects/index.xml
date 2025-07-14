@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Axat Bhardwaj</title>
+    <link>//localhost:1313/en/projects/</link>
+    <description>Recent content in Projects on Axat Bhardwaj</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Jul 2024 12:00:00 +0530</lastBuildDate>
+    <atom:link href="//localhost:1313/en/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>L3 rollup on Base</title>
+      <link>//localhost:1313/en/projects/l3-rollup/</link>
+      <pubDate>Sun, 14 Jul 2024 12:00:00 +0530</pubDate>
+      <guid>//localhost:1313/en/projects/l3-rollup/</guid>
+      <description>&lt;p&gt;Developed six smart contracts for stablecoins, native tokens, multi-signature treasuries, and multi-signature vaults.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

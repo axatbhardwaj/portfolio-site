@@ -1,67 +1,65 @@
-baseurl = "https://axatbhardwaj.eth.limo"
-title = "Axat Bhardwaj"
-theme = "hugo-coder"
-languagecode = "en"
-defaultcontentlanguage = "en"
+baseURL = "/"
+languageCode = 'en-us'
+title = 'Axat Bhardwaj'
+theme = 'hugo-noir'
 
+# URL handling
+relativeURLs = true
+canonifyURLs = true
 
-[pagination]
-pagerSize = 20
-
-[services]
-[services.disqus]
-shortname = ""
-
-[markup.highlight]
-style = "github-dark"
-
-[params]
-  author = "Axat Bhardwaj"
-  info = "Blockchain and Backend Developer"
-  description = "Axat Bhardwaj's personal website"
-  keywords = "blog,developer,personal"
-  avatarurl = "/images/avtr.png"
-  #gravatar = "john.doe@example.com"
-
-  faviconSVG = "/img/avtr.png"
-  favicon_32 = "/img/avtr.png"
-  favicon_16 = "/img/avtr.png"
-
-  since = 2019
-
-  enableTwemoji = true
-
-  colorScheme = "auto"
-  hidecolorschemetoggle = false
-
-  # customCSS = ["css/custom.css"]
-  # customSCSS = ["scss/custom.scss"]
-  # customJS = ["js/custom.js"]
-
+# Taxonomy configuration
 [taxonomies]
   category = "categories"
-  series = "series"
   tag = "tags"
-  author = "authors"
 
-# Social links
-[[params.social]]
-  name = "Github"
-  icon = "fa-brands fa-github fa-2x"
-  weight = 1
-  url = "https://github.com/axatbhardwaj/"
-[[params.social]]
-  name = "Twitter"
-  icon = "fa-brands fa-x-twitter fa-2x"
-  weight = 3
-  url = "https://twitter.com/axatbhardwaj/"
+[params]
+  
+[[params.honors]]
+  institution = "Solulab Inc."
+  title = "Gas Optimization"
+  date = "March 2022"
+  description = "Reduced a contract's gas fee by 50%, saving the client over $10,000 yearly."
 
-# Menu links
-[[menu.main]]
-  name = "Blog"
-  weight = 1
-  url  = "posts/"
-[[menu.main]]
-  name = "Resume"
-  weight = 3
-  url = "resume/"
+[[params.honors]]
+  institution = "Solulab Inc."
+  title = "Employee Of the Month"
+  date = "November 2021"
+
+[[params.honors]]
+  institution = "AICTE"
+  title = "Vishwakarma Awards - National Level"
+  date = "2019"
+
+[[params.certifications]]
+  title = "Ethereum Blockchain Developer Bootcamp With Solidity"
+  company = "Udemy"
+  
+[[params.certifications]]
+  title = "Introduction to EOSIO (Technical & Non-technical)"
+  company = "EOSIO"
+
+[[params.certifications]]
+  title = "Blockchain Basics"
+  company = "Coursera - University of Buffalo"
+
+[[params.certifications]]
+  title = "Metaverse Masterclass"
+  company = "Udemy"
+  
+[menu]
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 1
+  [[menu.main]]
+    name = "Experience"
+    url = "/experience/"
+    weight = 2
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 3
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 4

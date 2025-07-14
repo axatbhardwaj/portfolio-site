@@ -2,43 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://axatbhardwaj.eth.limo/posts/evm-gas-optimizations/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/</loc>
+    <lastmod>2025-07-14T10:54:46+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/blogs/</loc>
+    <lastmod>2025-07-14T10:54:46+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/blockchain/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/contact/</loc>
+    <lastmod>2025-07-14T10:54:46+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/evm/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/</loc>
+    <lastmod>2025-07-14T10:54:46+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/gas-optimization/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/experience/</loc>
+    <lastmod>2025-07-14T10:54:46+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/posts/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/about/</loc>
+    <lastmod>2024-07-14T12:05:00+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/solidity/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/projects/l3-rollup/</loc>
+    <lastmod>2024-07-14T12:00:00+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/</loc>
-    <lastmod>2025-07-06T00:15:00+05:30</lastmod>
+    <loc>//localhost:1313/en/projects/</loc>
+    <lastmod>2024-07-14T11:00:16+05:30</lastmod>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/resume/</loc>
-    <lastmod>2025-07-06T00:05:00+05:30</lastmod>
+    <loc>//localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://axatbhardwaj.eth.limo/tags/layer-2/</loc>
-    <lastmod>2023-04-03T00:15:00+05:30</lastmod>
-  </url><url>
-    <loc>https://axatbhardwaj.eth.limo/posts/layer-2-solutions/</loc>
-    <lastmod>2023-04-03T00:15:00+05:30</lastmod>
-  </url><url>
-    <loc>https://axatbhardwaj.eth.limo/authors/</loc>
-  </url><url>
-    <loc>https://axatbhardwaj.eth.limo/categories/</loc>
-  </url><url>
-    <loc>https://axatbhardwaj.eth.limo/series/</loc>
+    <loc>//localhost:1313/tags/</loc>
   </url>
 </urlset>

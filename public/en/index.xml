@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Axat Bhardwaj</title>
-    <link>//localhost:1313/</link>
-    <description>Recent content on Axat Bhardwaj</description>
+    <title>Ens on Axat Bhardwaj</title>
+    <link>//localhost:1313/en/</link>
+    <description>Recent content in Ens on Axat Bhardwaj</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Jul 2025 10:54:46 +0530</lastBuildDate>
-    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Contact</title>
       <link>//localhost:1313/en/contact/</link>
@@ -28,13 +28,6 @@
       <pubDate>Sun, 14 Jul 2024 12:05:00 +0530</pubDate>
       <guid>//localhost:1313/en/about/</guid>
       <description>&lt;h2 id=&#34;axat-bhardwaj&#34;&gt;Axat Bhardwaj&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Blockchain and Backend Developer&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;I am a seasoned Blockchain and Backend Developer with a deep passion for building robust, scalable systems on EVM-compatible networks. My journey has taken me from optimizing smart contracts to save thousands in gas fees, to leading teams in deploying cutting-edge Layer 2 and Layer 3 rollups.&lt;/p&gt;&#xA;&lt;p&gt;With extensive experience in Solidity, Python, and a variety of backend frameworks, I&amp;rsquo;ve had the privilege of designing foundational blockchain infrastructure for enterprise clients, developing custom token standards, and even engineering AI agents to interact with the crypto ecosystem. I&amp;rsquo;m driven by the challenges of scaling Web3 and creating efficient, decentralized solutions.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>L3 rollup on Base</title>
-      <link>//localhost:1313/en/projects/l3-rollup/</link>
-      <pubDate>Sun, 14 Jul 2024 12:00:00 +0530</pubDate>
-      <guid>//localhost:1313/en/projects/l3-rollup/</guid>
-      <description>&lt;p&gt;Developed six smart contracts for stablecoins, native tokens, multi-signature treasuries, and multi-signature vaults.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

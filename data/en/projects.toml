@@ -1,0 +1,35 @@
+[[projects]]
+  title = "L3 rollup on Base"
+  description = "Developed six smart contracts for stablecoins, native tokens, multi-signature treasuries, and multi-signature vaults."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,OP-stack,Base,Celo,Python,FastAPI,Express.js,Ethers.js,Viem.js"
+
+[[projects]]
+  title = "Real Estate Tokenisation"
+  description = "Designed and developed a new custom TOKEN standard."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,Python,FastAPI,Express.js,Ethers.js,Viem.js,PostgreSQL,Docker,Kubernetes"
+
+[[projects]]
+  title = "NFT MarketPlace"
+  description = "Responsible for implementing the Payout Flow of the NFT marketplace."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,Polygon,Python,FastAPI,Express.js,Ethers.js,Viem.js"
+
+[[projects]]
+  title = "Node on Demand"
+  description = "Developed a one-click solution for deploying Ethereum Mainnet nodes using express.js and Bash."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,Python,FastAPI,Express.js,Ethers.js,Viem.js,PostgreSQL,Docker,Kubernetes"
+
+[[projects]]
+  title = "AI Agent - meme-ooorr"
+  description = "Engineered AI Agent-driven meme Token Ecosystems: Contributed to the core AI agent for creating and managing meme-token economies, adding 6 critical features."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,Python,FastAPI,Express.js,Ethers.js,Viem.js,PostgreSQL,Docker,Kubernetes"
+
+[[projects]]
+  title = "EVM APIs"
+  description = "Set up and maintained an Ethereum mainnet Archive Node for over 7 months with 95% uptime."
+  link = "https://github.com/axatbhardwaj"
+  tech = "Solidity,Python,FastAPI,Express.js,Ethers.js,Viem.js,PostgreSQL,Docker,Kubernetes"

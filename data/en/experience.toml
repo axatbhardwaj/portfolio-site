@@ -1,0 +1,21 @@
+[[experience]]
+  company = "Freelancer"
+  role = "Sr. Blockchain Engineer"
+  period = "Oct 2024 - Jun 2025"
+  responsibilities = [
+    "Developed 6 smart contracts for creating a stablecoin, native token, Multi-sig treasury, and Multi-sig vaults.",
+    "Led a team of 5 Developers to develop & deploy a Layer 3 roll-up using OP-stack on Base l2.",
+    "Created and maintained a Crypto-AI agent responsible for launching memetokens on Base and Celo chains.",
+    "Built a robust backend service to capture and persist Twitter interactions from deployed agents, handling 4,000 daily transactions."
+  ]
+
+[[experience]]
+  company = "Infrablok India Pvt. Ltd."
+  role = "Software Engineer - Blockchain"
+  period = "Nov 2022 - Present"
+  responsibilities = [
+    "Led the design and development of the foundational blockchain infrastructure for enterprise clients.",
+    "Acted as the first point of contact for Blockchain in the organization.",
+    "Set up and maintained an Ethereum Blockchain Archive node for EVM API services with 100% uptime for 5 months.",
+    "Developed, deployed, & optimized 9 Smart contracts for an in-house Supply Chain Management tool."
+  ] 
