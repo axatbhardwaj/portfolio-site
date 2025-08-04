@@ -1,0 +1,109 @@
+---
+title: "Layer 2 Solutions"
+date: 2023-04-03T00:15:00+05:30
+draft: false
+tags: ["Layer 2", "Blockchain"]
+---
+
+# Layer 2 solutions
+
+> **What is Layer 2 Solutions ?**
+> 
+
+Layer 2 describes a specific set of Ethereum scaling solutions.  A layer 2 is a separate blockchain that extends Ethereum. 
+
+> **What is Sidechain ?**
+> 
+
+Sidechain is a separate blockchain which uses a to scaling layer 1 blockchain which runs parallel or side by side to the main chain. Sidechain have their own consensus mechanism compared to the main chain. It can be **Proof-Of-Stake**, **Proof-Of-Delegate** or **Proof-Of-Authority**. If you select any of the consensus mechanisms for **Sidechain** you cannot change later.
+
+The tokens are transferred from the main chain to the sidechain to use in the sidechain. They can do vice versa from side chain to main chain.
+
+> **What is an Optimistic Rollups ?**
+> 
+
+An optimistic rollup is an approach to scaling Ethereum that involves moving computation and state storage off-chain. Its operators collect bundle off-chain transactions together in large batches, after that then it is sent to **Ethereum**. It uses a concept called **Fraud-Proof**, it assumes that all the transactions sent to the networks are valid. It uses a verifier to monitor the batches & check if they are valid or not.
+
+The optimistic rollups' operation is controlled by smart contracts running on Ethereum. Users submit transactions to operators, then it collects all transactions on the optimistic rollup then submitted to the Ethereum mainnet. Rollups inputs to the chain the messages that are put into the inbox are all recorded on the Ethereum chain as calldata.
+
+If someone tries to execute fake transactions then while validating it will be caught & the funds will burn & given to validators as reward.
+
+> **Optimistic Rollups compatible with EVM?**
+> 
+
+Optimistic Rollups compatible with **EVM**. Developers can deploy the same contract on **Optimistic** Rollups.
+
+> **How is Optimism connected with Layer 1 ?**
+> 
+
+All Optimism blocks are stored within a special smart contract on Ethereum called the **CanonicalTransactionChain** (known as CTC for short). The **CTC**  contract code guarantees that the list of block cannot be modified by the **Ethereum** transactions.
+
+[CTC Contract](https://etherscan.io/address/0x5E4e65926BA27467555EB562121fac00D24E9dD2#code) 
+
+If **Ethereum** blockchains itself reorganized and changed the past **Ethereum** transaction then the block can be modified in **CTC** contract.
+
+> **How Arbitrum connected with Layer 1?**
+> 
+
+First user creates a transaction & sends it to the Nitro chains **Sequencer**. The **Sequencer** will collect all transactions, put them into an ordered sequence and publish that sequence. Once the transactions are sequenced, they are run through the state transition function, one by one, in order. The state transition function takes as input the current state of the chain like account balances, contract code etc along with the next transaction. It also updates the state and sometimes emits a new **Layer** **2** block on the **Nitro chain**. The **Sequencer** doesn't support garbage into the **sequencer**. The state transition function will detect and discard any invalid transaction from the **sequencer**. It will reduce gas fees and a well behaved **Sequencer**.
+
+> **The new Nitro benefits**
+> 
+- **Increased throughput**
+- **Advanced calldata compression,**
+- **Ethereum L1 gas compatibility**
+- **Additional L1 interoperability**
+- **Safer retryables**
+- **Geth tracing**
+
+> **What are Zero-knowledge Rollups  ?**
+> 
+
+**Zero-Knowledge Rollups** (**ZK-Rollups**) are similar to **Optimistic Rollups**, they bundle transactions into batches that are executed **off-chain** and submit them as one transaction onto **Ethereum**.  It uses cryptographic proof.  
+
+Compared to **Optimistic Rollups** instead of assuming transactions are valid and passed to blockchains. **ZK-Rollups** use validity proofs to instantly prove if transactions are valid or not. 
+
+> **How do ZK-Rollups work ?**
+> 
+
+First we understand **ZK(Zero-Knowledge)**,  it's something that without revealing its rite.
+
+For example : If teacher has given some math problems you solved & said to teacher I have completed, Teacher will say show me your answer if answer is correct then teacher will say nice beta now move to next problems. Similar way without seeing how problems are solved just showing answers and verified, in this way **ZK(Zero-Knowledge) Rollups** works.
+
+Unlike **Optimistic Rollups** that force transactions to wait a period of time for fraud proofs, when a **ZK-SNARK** is sent to Ethereum the receiving smart contract can instantly verify if the proof is valid or not on-chain. 
+
+**ZK-SNARK** verified transaction instantly, funds can be able to withdrawn on **ZK-Rollups** as soon as the **ZK-Snarks** transaction is mined on **Ethereum** (12 seconds around), you don't have to wait for the hours,days or weeks for the dispute period end.
+
+> **ZK Rollups compatible with EVM ?**
+> 
+
+No, you can not deploy contracts on ZK Rollups.
+
+> **Projects working on ZK-Rollups ?**
+> 
+- Zk Sync
+- Loopring
+- Immutable X
+- Aztec
+- DyDx
+
+> **What is a ZKEVM ?**
+> 
+
+A **Zero Knowledge Ethereum Virtual Machine** is a virtual machine that generates **Zero-Knowledge-Proofs** to verify the correctness of programs. **ZKEVM** is designed in a way that it can execute smart contracts that supports **Zero Knowledge Ethereum Virtual Machine.**
+
+> **Projects working on ZKEVM  Rollups ?**
+> 
+- Polygon ZKEVM
+- ZKSync ZKEVM
+- Scroll ZKEVM
+
+> **ZKEVM Execution Model ?**
+> 
+
+![ZK EVM.png](/images/ZK_EVM.png)
+
+> **ZKEVM Architecture Model ?**
+> 
+
+![ZK 2.png](/images/ZK_2.png)
