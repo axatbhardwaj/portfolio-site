@@ -64,12 +64,26 @@ function readMDXFile(filePath: string): FrontmatterParseResult {
   return parseFrontmatter(rawContent)
 }
 
+function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/&/g, '-and-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
+}
+
 function getMDXData(dir: string): MDXFileData[] {
   const mdxFiles = getMDXFiles(dir)
 
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(path.join(dir, file))
-    const slug = path.basename(file, path.extname(file))
+    const rawSlug = path.basename(file, path.extname(file))
+    const slug = slugify(rawSlug)
 
     return {
       metadata,
