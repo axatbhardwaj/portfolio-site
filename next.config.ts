@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // 1. Added to enable static site generation for ENS/IPFS
   output: 'export',
 
+  // Add trailing slash for IPFS compatibility
+  trailingSlash: true,
+
   experimental: {
     // These are fine to keep, they won't affect the static build
     // ppr: true,

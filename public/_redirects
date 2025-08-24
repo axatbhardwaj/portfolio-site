@@ -1,0 +1,7 @@
+# IPFS redirects for blog posts
+/blog/from-beacon-to-beam /blog/from-beacon-to-beam.html 200
+/blog/evm-gas-optimizations /blog/evm-gas-optimizations.html 200
+/blog/layer-2-solutions /blog/layer-2-solutions.html 200
+
+# Catch-all for other routes
+/* /index.html 200
