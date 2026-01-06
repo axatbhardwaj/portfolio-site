@@ -11,11 +11,11 @@ export function Header() {
       </h1>
       <div className="flex flex-col gap-2 text-gray-400">
         <div className="flex items-center gap-2">
-          <MapPin className="w-4 h-4" />
+          <MapPin className="w-4 h-4 text-primary" />
           Delhi , India
         </div>
         <div className="flex items-center gap-2">
-          <Building2 className="w-4 h-4" />
+          <Building2 className="w-4 h-4 text-primary" />
           Blockchain and Backend Dev @valory
         </div>
       </div>

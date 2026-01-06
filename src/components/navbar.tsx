@@ -36,27 +36,28 @@ export function Navbar() {
 
   return (
     <nav className="flex items-center justify-between mb-12 text-sm">
-      <div className="flex space-x-4">
-        <Link
-          href="/"
-          className="hover:text-accent transition-colors duration-200"
-        >
-          [h] home
-        </Link>
-        <Link
-          href="/blog"
-          prefetch={true}
-          className="hover:text-accent transition-colors duration-200"
-        >
-          [b] blog
-        </Link>
-        <Link
-          href="/projects"
-          className="hover:text-accent transition-colors duration-200"
-        >
-          [p] projects
-        </Link>
+      <div className="flex space-x-6">
+        <NavLink href="/" shortcut="h" label="home" />
+        <NavLink href="/blog" shortcut="b" label="blog" />
+        <NavLink href="/projects" shortcut="p" label="projects" />
       </div>
     </nav>
+  )
+}
+
+function NavLink({ href, shortcut, label }: { href: string; shortcut: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="group relative flex items-center gap-1 hover:text-primary transition-colors duration-200"
+    >
+      <span className="text-gray-500 group-hover:text-primary transition-colors duration-200">
+        [{shortcut}]
+      </span>
+      <span className="relative">
+        {label}
+        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary group-hover:w-full transition-all duration-300" />
+      </span>
+    </Link>
   )
 }
