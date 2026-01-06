@@ -3,59 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --background: #111;
-  --foreground: #d1d5db;
+  /* Dark mode by default */
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  
+    /* Cyberpunk / Web3 Accents */
+    /* User requested GREEN ACCENT */
+    --color-primary: #03fc3d;
+    /* Neon Green */
+    --color-secondary: #00f0ff;
+    /* Cyan */
+    --color-accent: #7000ff;
+    /* Electric Purple */
+  
+    --font-geist-sans: var(--font-geist-sans);
+    --font-geist-mono: var(--font-geist-mono);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 
-.shiki,
-.shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+        .glow-text {
+          text-shadow: 0 0 10px rgba(3, 252, 61, 0.5);
+          /* Green Glow */
+        }
+        .glow-box {
+          box-shadow: 0 0 20px rgba(3, 252, 61, 0.1);
+          /* Green Glow */
+        }
 
-.prose a:not(.anchor) {
-  @apply text-accent no-underline hover:underline;
-}
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
 
-.prose a.anchor {
-  @apply relative no-underline;
-}
-
-.prose a.anchor::before {
-  @apply absolute -left-4 opacity-0 transition-opacity duration-200 content-['#'];
-}
-
-.prose a.anchor:hover::before {
-  @apply opacity-100;
-}
-
-.prose pre {
-  @apply overflow-x-auto border border-neutral-800 bg-[#111] my-4 rounded-none;
-}
-
-.prose code:not(pre code) {
-  @apply px-1 py-0.5 text-sm border border-gray-700 rounded text-gray-200;
-}
-
-.prose code:not(pre code)::before,
-.prose code:not(pre code)::after {
-  content: none;
-}
-
-.prose pre code {
-  @apply p-4 block bg-transparent;
-  border: initial;
-  line-height: 1.6;
-}
-
-.prose code span {
-  @apply font-medium text-gray-200;
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          /* IE and Edge */
+          scrollbar-width: none;
+          /* Firefox */
+        }
 }

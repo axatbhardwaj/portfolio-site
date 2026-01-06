@@ -11,11 +11,14 @@ export default {
     extend: {
       fontFamily: {
         mono: ["var(--font-geist-mono)"],
+        sans: ["var(--font-geist-sans)"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        accent: "#03fc3d",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
       },
     },
   },
