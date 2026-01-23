@@ -26,19 +26,21 @@ jobs:
           NEXT_PUBLIC_GITHUB_API_URL: https://api.axatbhardwaj.xyz/api/github
         run: bun run build
 
-      - name: Upload to Pinata
+      - name: Upload to IPFS via Pinata
         id: pinata
-        uses: PinataCloud/pinata-action@v1
+        uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.4
         with:
-          pinataJwt: ${{ secrets.PINATA_JWT }}
-          sourcePath: ./out
+          pin-name: portfolio-${{ github.sha }}
+          path: ./out
+          pinata-api-key: ${{ secrets.PINATA_API_KEY }}
+          pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
 
       - name: Summary
         run: |
           echo "### Deployment Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**IPFS Hash**: \`${{ steps.pinata.outputs.cid }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**IPFS Hash**: \`${{ steps.pinata.outputs.hash }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Preview**: https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.cid }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Preview**: https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**ENS Update**: Set content hash to \`ipfs://${{ steps.pinata.outputs.cid }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**ENS Update**: Set content hash to \`ipfs://${{ steps.pinata.outputs.hash }}\`" >> $GITHUB_STEP_SUMMARY
