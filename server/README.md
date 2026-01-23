@@ -52,7 +52,7 @@ server {
     server_name api.yourdomain.com;
 
     location /github {
-        proxy_pass http://localhost:3001/api/github;
+        proxy_pass http://localhost:3456/api/github;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
 
@@ -69,7 +69,7 @@ Add to GitHub Secrets:
 
 Or for local testing, create `.env.local`:
 ```
-NEXT_PUBLIC_GITHUB_API_URL=http://localhost:3001/api/github
+NEXT_PUBLIC_GITHUB_API_URL=http://localhost:3456/api/github
 ```
 
 ## Endpoints

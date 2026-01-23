@@ -19,7 +19,7 @@ WorkingDirectory=/home/xzat/personal/portfolio-site/server
 ExecStart=/home/xzat/.bun/bin/bun run github-api.ts
 
 # Environment variables
-Environment=PORT=3001
+Environment=PORT=3456
 Environment=GITHUB_TOKEN=your_github_token_here
 
 # Restart on failure

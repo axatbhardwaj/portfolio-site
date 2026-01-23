@@ -17,8 +17,8 @@ GitHub contributions API server for dynamic data fetching.
 GITHUB_TOKEN=ghp_xxx bun run github-api.ts
 
 # Check server health
-curl http://localhost:3001/health
+curl http://localhost:3456/health
 
 # Fetch GitHub data
-curl http://localhost:3001/api/github
+curl http://localhost:3456/api/github
 ```

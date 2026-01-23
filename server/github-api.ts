@@ -5,13 +5,13 @@
  *
  * Environment variables:
  *   GITHUB_TOKEN - Your GitHub personal access token
- *   PORT - Server port (default: 3001)
+ *   PORT - Server port (default: 3456)
  *
  * The server caches data for 24 hours and refreshes automatically.
  */
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
-const PORT = parseInt(process.env.PORT || "3001")
+const PORT = parseInt(process.env.PORT || "3456")
 const CACHE_TTL = 24 * 60 * 60 * 1000 // 24 hours in ms
 const GITHUB_USERNAME = "axatbhardwaj"
 
