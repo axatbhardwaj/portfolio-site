@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   // Add trailing slash for IPFS compatibility
   trailingSlash: true,
 
+  // Use relative paths for IPFS gateway compatibility
+  assetPrefix: './',
+
   experimental: {
     // These are fine to keep, they won't affect the static build
     // ppr: true,
