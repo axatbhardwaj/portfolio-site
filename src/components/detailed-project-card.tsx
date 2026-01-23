@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Calendar, User } from "lucide-react"
+import { ArrowUpRight, Calendar, User, Zap, Code2, Blocks } from "lucide-react"
 
 export type ImpactStat = {
   label: string
@@ -30,89 +30,143 @@ export function DetailedProjectCard({
   isSpotlight = false,
 }: DetailedProjectProps) {
   return (
-    <div 
-      className={`group relative p-8 border rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
-        isSpotlight 
-          ? "bg-gray-900/40 border-primary/30 hover:border-primary/60 hover:shadow-[0_0_40px_rgba(3,252,61,0.15)]" 
-          : "bg-gray-900/20 border-gray-800 hover:border-gray-700 hover:bg-gray-900/40"
+    <div
+      className={`group relative overflow-hidden transition-all duration-500 h-full flex flex-col ${
+        isSpotlight
+          ? "bg-background-card border border-primary/20 rounded-xl hover:border-primary/50 hover:shadow-glow-md"
+          : "bg-background-card/50 border border-border-dim rounded-xl hover:border-border-highlight hover:bg-background-card"
       }`}
     >
-      {/* Background Effect */}
+      {/* Corner Decorations for Spotlight */}
       {isSpotlight && (
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
+        <>
+          <div className="block-corner block-corner-tl" />
+          <div className="block-corner block-corner-tr" />
+          <div className="block-corner block-corner-bl" />
+          <div className="block-corner block-corner-br" />
+        </>
       )}
 
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
-        <div>
-          <h3 className={`text-2xl font-bold font-mono mb-2 flex items-center gap-2 ${isSpotlight ? "text-white group-hover:text-primary transition-colors" : "text-gray-200"}`}>
-            <Link href={href} target="_blank" className="flex items-center gap-2 hover:underline decoration-primary/50 underline-offset-4">
-              {title}
-              <ArrowUpRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
-            </Link>
-            {isSpotlight && <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full border border-primary/20">Spotlight</span>}
-          </h3>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 font-mono">
-            <span className="flex items-center gap-1.5">
-              <User className="w-3.5 h-3.5" />
-              {role}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              {period}
-            </span>
+      {/* Hex Pattern Background */}
+      <div className="absolute inset-0 hex-pattern opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+      {/* Data Stream Effect for Spotlight */}
+      {isSpotlight && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      )}
+
+      {/* Content Container */}
+      <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+          <div className="flex-1">
+            {/* Title */}
+            <h3 className="text-xl sm:text-2xl font-bold font-mono mb-3 flex flex-wrap items-center gap-3">
+              <Link
+                href={href}
+                target="_blank"
+                className={`flex items-center gap-2 transition-all ${
+                  isSpotlight
+                    ? "text-white hover:text-primary hover:glow-text"
+                    : "text-foreground hover:text-white"
+                }`}
+              >
+                {title}
+                <ArrowUpRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
+              </Link>
+              {isSpotlight && (
+                <span className="inline-flex items-center gap-1.5 text-xs bg-primary/10 text-primary px-2.5 py-1 rounded border border-primary/30 font-normal">
+                  <Zap className="w-3 h-3" />
+                  Spotlight
+                </span>
+              )}
+            </h3>
+
+            {/* Meta Info */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-foreground-muted font-mono">
+              <span className="flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-primary/50" />
+                {role}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-primary/50" />
+                {period}
+              </span>
+            </div>
           </div>
+
+          {/* Impact Stats */}
+          {impactStats && impactStats.length > 0 && (
+            <div className="flex gap-4 sm:gap-6">
+              {impactStats.map((stat, idx) => (
+                <div key={idx} className="text-right">
+                  <div className="text-xl sm:text-2xl font-bold text-primary font-mono">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-foreground-muted uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Impact Stats */}
-        {impactStats && impactStats.length > 0 && (
-          <div className="flex gap-4">
-            {impactStats.map((stat, idx) => (
-              <div key={idx} className="text-right">
-                <div className="text-xl font-bold text-primary">{stat.value}</div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider">{stat.label}</div>
-              </div>
+        {/* Description */}
+        <div className="mb-6 p-4 bg-black/40 rounded-lg border border-border-default">
+          <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+            {description}
+          </p>
+        </div>
+
+        {/* Achievements */}
+        <div className="mb-6 flex-grow">
+          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <Code2 className="w-3.5 h-3.5 text-primary/70" />
+            Key Contributions
+          </h4>
+          <ul className="space-y-2.5">
+            {achievements.map((achievement, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-3 text-sm text-gray-400 group-hover:text-gray-300 transition-colors"
+              >
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors flex-shrink-0" />
+                <span>{achievement}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Tech Stack */}
+        <div className="pt-6 border-t border-border-dim">
+          <div className="flex items-center gap-2 mb-3">
+            <Blocks className="w-3.5 h-3.5 text-primary/60" />
+            <span className="text-xs font-bold text-foreground-muted uppercase tracking-widest">
+              Stack
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className={`text-xs px-2.5 py-1 rounded font-mono transition-all ${
+                  isSpotlight
+                    ? "bg-primary/5 text-primary border border-primary/20 hover:bg-primary/10 hover:border-primary/40"
+                    : "bg-background-elevated text-foreground-muted border border-border-dim hover:text-foreground hover:border-border-highlight"
+                }`}
+              >
+                {tech}
+              </span>
             ))}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Description */}
-      <p className="text-gray-300 mb-6 leading-relaxed bg-black/20 p-4 rounded-lg border border-white/5">
-        {description}
-      </p>
-
-      {/* Achievements */}
-      <div className="mb-8">
-        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-1 h-1 bg-primary rounded-full" /> 
-          Key Contributions
-        </h4>
-        <ul className="grid grid-cols-1 gap-3">
-          {achievements.map((achievement, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-gray-600 group-hover:bg-primary transition-colors flex-shrink-0" />
-              {achievement}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Tech Stack */}
-      <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-800">
-        {techStack.map((tech) => (
-          <span 
-            key={tech} 
-            className={`text-xs px-2.5 py-1 rounded border transition-colors ${
-              isSpotlight 
-                ? "bg-primary/5 text-primary border-primary/20 hover:bg-primary/10" 
-                : "bg-gray-800/50 text-gray-500 border-gray-700 hover:text-gray-300 hover:border-gray-600"
-            }`}
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
+      {/* Bottom Gradient for Spotlight */}
+      {isSpotlight && (
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      )}
     </div>
   )
 }
