@@ -28,41 +28,17 @@ jobs:
 
       - name: Upload to Pinata
         id: pinata
-        env:
-          PINATA_JWT: ${{ secrets.PINATA_JWT }}
-        run: |
-          # Use curl to upload directory via Pinata API
-          cd out
-
-          # Create a tar of the directory
-          tar -cvf ../site.tar .
-          cd ..
-
-          # Upload to Pinata
-          RESPONSE=$(curl -s -X POST "https://api.pinata.cloud/pinning/pinFileToIPFS" \
-            -H "Authorization: Bearer $PINATA_JWT" \
-            -F "file=@site.tar;filename=site.tar" \
-            -F 'pinataMetadata={"name":"portfolio-'$(date +%Y%m%d-%H%M%S)'"}' \
-            -F 'pinataOptions={"cidVersion":1}')
-
-          echo "Pinata response: $RESPONSE"
-
-          IPFS_HASH=$(echo $RESPONSE | jq -r '.IpfsHash')
-
-          if [ "$IPFS_HASH" = "null" ] || [ -z "$IPFS_HASH" ]; then
-            echo "Failed to get IPFS hash from Pinata"
-            exit 1
-          fi
-
-          echo "ipfs_hash=$IPFS_HASH" >> $GITHUB_OUTPUT
-          echo "Deployed to IPFS: ipfs://$IPFS_HASH"
+        uses: PinataCloud/pinata-action@v1
+        with:
+          pinataJwt: ${{ secrets.PINATA_JWT }}
+          sourcePath: ./out
 
       - name: Summary
         run: |
           echo "### Deployment Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**IPFS Hash**: \`${{ steps.pinata.outputs.ipfs_hash }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**IPFS Hash**: \`${{ steps.pinata.outputs.cid }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Preview**: https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.ipfs_hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Preview**: https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.cid }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**ENS Update**: Set content hash to \`ipfs://${{ steps.pinata.outputs.ipfs_hash }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**ENS Update**: Set content hash to \`ipfs://${{ steps.pinata.outputs.cid }}\`" >> $GITHUB_STEP_SUMMARY
