@@ -2,9 +2,9 @@ import { Header } from "@/components/header"
 import { Item, SectionList } from "@/components/section-list"
 import { BlogSection } from "@/components/blog-section"
 import { LinksSection } from "@/components/links-section"
-import { ProjectShowcase } from "@/components/project-showcase"
 import { SpotlightShowcase } from "@/components/spotlight-showcase"
 import { GitHubActivity } from "@/components/github-activity"
+import { GitHubProjects } from "@/components/github-projects"
 import { spotlightProjects } from "@/data/projects"
 
 const workItems: Item[] = [
@@ -42,114 +42,6 @@ const workItems: Item[] = [
   },
 ]
 
-const projects = [
-  {
-    name: "Subgraph-Sentinel",
-    description:
-      "Bun + Grammy Telegram bot that watches The Graph subgraphs for fee regressions, KPI drops, and fetch failures.",
-    language: "JavaScript",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/Subgraph-Sentinel",
-    color: "#f7df1e",
-  },
-  {
-    name: "bodhi",
-    description:
-      "Decentralized AI for everyone. A TypeScript-based project exploring decentralized artificial intelligence.",
-    language: "TypeScript",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/bodhi",
-    color: "#3178c6",
-  },
-  {
-    name: "memebase-bot",
-    description:
-      "Telegram bot analyzing memebase token contract for game stats (24h). Built with Python.",
-    language: "Python",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/memebase-game-stats-bot",
-    color: "#3572A5",
-  },
-  {
-    name: "Veridian",
-    description:
-      "ETHGlobal New Delhi 2025 hackathon project. Built with TypeScript.",
-    language: "TypeScript",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/Veridian",
-    color: "#3178c6",
-  },
-  {
-    name: "Haoshoku",
-    description:
-      "Toolkit automating installation of essential dev tools and terminal configs for Linux distributions.",
-    language: "JavaScript",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/Haoshoku",
-    color: "#f7df1e",
-  },
-  {
-    name: "TracePool",
-    description: "JS-based tracing tool or utility.",
-    language: "JavaScript",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/TracePool",
-    color: "#f7df1e",
-  },
-  {
-    name: "palworld-server",
-    description: "Python package to manage Palworld server instances easily.",
-    language: "Python",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/palworld-server-launcher",
-    color: "#3572A5",
-  },
-  {
-    name: "Ec-recover-exp",
-    description:
-      "Experimentation with Elliptic Curve Recovery in Python for signature verification.",
-    language: "Python",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/Ec-recover-experimentation",
-    color: "#3572A5",
-  },
-  {
-    name: "yt-dlp-wrapper",
-    description:
-      "Rust wrapper for yt-dlp to download specific video segments. Explores Rust process interactions.",
-    language: "Rust",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/yt-dlp-wrapper",
-    color: "#dea584",
-  },
-  {
-    name: "arbitrage-bot",
-    description: "A simple arbitrage bot written in JavaScript.",
-    language: "JavaScript",
-    stars: 1,
-    url: "https://github.com/axatbhardwaj/arbitrage-bot",
-    color: "#f7df1e",
-  },
-  {
-    name: "AnimeQuote-oracle",
-    description:
-      "Solidity Oracle contract fetching quotes from animechan.io on-chain.",
-    language: "Solidity",
-    stars: 0,
-    url: "https://github.com/axatbhardwaj/AnimeQuote-oracle",
-    color: "#00ff41",
-  },
-  {
-    name: "100xDev-NFT",
-    description:
-      "SBT minting using Chainlink DON for verification of cohort members.",
-    language: "Solidity",
-    stars: 1,
-    url: "https://github.com/axatbhardwaj/100xDev-NFT",
-    color: "#00ff41",
-  },
-]
-
 export default function HomePage() {
   return (
     <div className="space-y-24">
@@ -180,7 +72,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
         </div>
-        <ProjectShowcase projects={projects} />
+        <GitHubProjects />
       </section>
 
       {/* GitHub Contributions */}

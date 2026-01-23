@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Subgraph-Sentinel",
+    "description": "Bun + Grammy Telegram bot that watches The Graph subgraphs for fee regressions, KPI drops, and fetch failures.",
+    "language": "JavaScript",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/Subgraph-Sentinel",
+    "color": "#f7df1e"
+  },
+  {
+    "name": "bodhi",
+    "description": "Decentralized AI for everyone. A TypeScript-based project exploring decentralized artificial intelligence.",
+    "language": "TypeScript",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/bodhi",
+    "color": "#3178c6"
+  },
+  {
+    "name": "memebase-bot",
+    "description": "Telegram bot analyzing memebase token contract for game stats (24h). Built with Python.",
+    "language": "Python",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/memebase-game-stats-bot",
+    "color": "#3572A5"
+  },
+  {
+    "name": "Veridian",
+    "description": "ETHGlobal New Delhi 2025 hackathon project. Built with TypeScript.",
+    "language": "TypeScript",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/Veridian",
+    "color": "#3178c6"
+  },
+  {
+    "name": "Haoshoku",
+    "description": "Toolkit automating installation of essential dev tools and terminal configs for Linux distributions.",
+    "language": "JavaScript",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/Haoshoku",
+    "color": "#f7df1e"
+  },
+  {
+    "name": "portfolio-site",
+    "description": "Personal portfolio website with cyberpunk aesthetics, deployed on IPFS via ENS.",
+    "language": "TypeScript",
+    "stars": 0,
+    "url": "https://github.com/axatbhardwaj/portfolio-site",
+    "color": "#3178c6"
+  }
+]

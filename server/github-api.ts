@@ -1,11 +1,16 @@
 /**
- * Simple GitHub Contributions API Server
+ * GitHub API Server
  *
  * Run with: bun run server/github-api.ts
  *
  * Environment variables:
  *   GITHUB_TOKEN - Your GitHub personal access token
  *   PORT - Server port (default: 3456)
+ *
+ * Endpoints:
+ *   /api/github   - Contribution calendar data
+ *   /api/projects - Pinned repositories
+ *   /health       - Health check
  *
  * The server caches data for 24 hours and refreshes automatically.
  */
@@ -27,7 +32,21 @@ interface CachedData {
   timestamp: number
 }
 
-let cache: CachedData | null = null
+let contributionsCache: CachedData | null = null
+let projectsCache: CachedData | null = null
+
+// Language color mapping
+const languageColors: Record<string, string> = {
+  TypeScript: "#3178c6",
+  JavaScript: "#f7df1e",
+  Python: "#3572A5",
+  Solidity: "#AA6746",
+  Rust: "#dea584",
+  Go: "#00ADD8",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+  Shell: "#89e051",
+}
 
 async function fetchGitHubContributions() {
   const query = `
@@ -65,42 +84,130 @@ async function fetchGitHubContributions() {
   return response.json()
 }
 
+async function fetchGitHubProjects() {
+  const query = `
+    query {
+      user(login: "${GITHUB_USERNAME}") {
+        pinnedItems(first: 6, types: REPOSITORY) {
+          nodes {
+            ... on Repository {
+              name
+              description
+              url
+              stargazerCount
+              primaryLanguage {
+                name
+                color
+              }
+            }
+          }
+        }
+        repositories(first: 10, orderBy: {field: UPDATED_AT, direction: DESC}, privacy: PUBLIC) {
+          nodes {
+            name
+            description
+            url
+            stargazerCount
+            primaryLanguage {
+              name
+              color
+            }
+            updatedAt
+          }
+        }
+      }
+    }
+  `
+
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  })
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`)
+  }
+
+  const result = await response.json()
+
+  // Transform to simpler format
+  const pinnedRepos = result.data?.user?.pinnedItems?.nodes || []
+  const recentRepos = result.data?.user?.repositories?.nodes || []
+
+  // Use pinned repos if available, otherwise fall back to recent
+  const repos = pinnedRepos.length > 0 ? pinnedRepos : recentRepos.slice(0, 6)
+
+  return repos.map((repo: any) => ({
+    name: repo.name,
+    description: repo.description || "No description",
+    url: repo.url,
+    stars: repo.stargazerCount,
+    language: repo.primaryLanguage?.name || "Unknown",
+    color: repo.primaryLanguage?.color || languageColors[repo.primaryLanguage?.name] || "#858585",
+  }))
+}
+
 async function getContributions() {
   const now = Date.now()
 
-  // Return cached data if valid
-  if (cache && now - cache.timestamp < CACHE_TTL) {
-    console.log(`[${new Date().toISOString()}] Serving cached data`)
-    return cache.data
+  if (contributionsCache && now - contributionsCache.timestamp < CACHE_TTL) {
+    console.log(`[${new Date().toISOString()}] Serving cached contributions`)
+    return contributionsCache.data
   }
 
-  // Fetch fresh data
-  console.log(`[${new Date().toISOString()}] Fetching fresh data from GitHub`)
+  console.log(`[${new Date().toISOString()}] Fetching fresh contributions from GitHub`)
   try {
     const data = await fetchGitHubContributions()
-    cache = { data, timestamp: now }
+    contributionsCache = { data, timestamp: now }
     return data
   } catch (error) {
-    console.error("Failed to fetch from GitHub:", error)
-    // Return stale cache if available
-    if (cache) {
-      console.log("Returning stale cached data")
-      return cache.data
+    console.error("Failed to fetch contributions:", error)
+    if (contributionsCache) {
+      console.log("Returning stale cached contributions")
+      return contributionsCache.data
+    }
+    throw error
+  }
+}
+
+async function getProjects() {
+  const now = Date.now()
+
+  if (projectsCache && now - projectsCache.timestamp < CACHE_TTL) {
+    console.log(`[${new Date().toISOString()}] Serving cached projects`)
+    return projectsCache.data
+  }
+
+  console.log(`[${new Date().toISOString()}] Fetching fresh projects from GitHub`)
+  try {
+    const data = await fetchGitHubProjects()
+    projectsCache = { data, timestamp: now }
+    return data
+  } catch (error) {
+    console.error("Failed to fetch projects:", error)
+    if (projectsCache) {
+      console.log("Returning stale cached projects")
+      return projectsCache.data
     }
     throw error
   }
 }
 
 // Pre-fetch on startup
-getContributions().then(() => {
+Promise.all([getContributions(), getProjects()]).then(() => {
   console.log("Initial data fetched and cached")
 })
 
 // Refresh cache periodically
 setInterval(
   () => {
-    console.log("Refreshing cache...")
+    console.log("Refreshing caches...")
     getContributions()
+    getProjects()
   },
   CACHE_TTL / 2
 ) // Refresh every 12 hours
@@ -110,14 +217,12 @@ const server = Bun.serve({
   async fetch(req) {
     const url = new URL(req.url)
 
-    // CORS headers
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     }
 
-    // Handle CORS preflight
     if (req.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders })
     }
@@ -130,19 +235,41 @@ const server = Bun.serve({
     }
 
     // GitHub contributions endpoint
-    if (url.pathname === "/api/github" || url.pathname === "/") {
+    if (url.pathname === "/api/github") {
       try {
         const data = await getContributions()
         return new Response(JSON.stringify(data), {
           headers: {
             ...corsHeaders,
             "Content-Type": "application/json",
-            "Cache-Control": "public, max-age=3600", // Browser cache 1 hour
+            "Cache-Control": "public, max-age=3600",
           },
         })
       } catch (error) {
         return new Response(
           JSON.stringify({ error: "Failed to fetch GitHub data" }),
+          {
+            status: 500,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          }
+        )
+      }
+    }
+
+    // Projects endpoint
+    if (url.pathname === "/api/projects") {
+      try {
+        const data = await getProjects()
+        return new Response(JSON.stringify(data), {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+            "Cache-Control": "public, max-age=3600",
+          },
+        })
+      } catch (error) {
+        return new Response(
+          JSON.stringify({ error: "Failed to fetch projects" }),
           {
             status: 500,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -157,10 +284,11 @@ const server = Bun.serve({
 
 console.log(`
 ╔════════════════════════════════════════════════════════════╗
-║  GitHub Contributions API Server                           ║
+║  GitHub API Server                                         ║
 ╠════════════════════════════════════════════════════════════╣
-║  Endpoint: http://localhost:${PORT}/api/github               ║
-║  Health:   http://localhost:${PORT}/health                   ║
-║  Cache:    24 hours (refreshes every 12 hours)             ║
+║  Contributions: http://localhost:${PORT}/api/github          ║
+║  Projects:      http://localhost:${PORT}/api/projects        ║
+║  Health:        http://localhost:${PORT}/health              ║
+║  Cache:         24 hours (refreshes every 12 hours)        ║
 ╚════════════════════════════════════════════════════════════╝
 `)
