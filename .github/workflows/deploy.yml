@@ -23,7 +23,7 @@ jobs:
 
       - name: Build static site
         env:
-          NEXT_PUBLIC_GITHUB_API_URL: ${{ secrets.GITHUB_API_URL }}
+          NEXT_PUBLIC_GITHUB_API_URL: https://api.axatbhardwaj.xyz/api/github
         run: bun run build
 
       - name: Upload to Pinata
