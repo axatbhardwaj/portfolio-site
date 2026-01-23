@@ -1,49 +1,111 @@
 # Axat Bhardwaj - Portfolio
 
-A decentralized, AI-themed portfolio website built with Next.js and Tailwind CSS. Designed for static hosting on IPFS.
+Decentralized portfolio website with cyberpunk/blockchain aesthetic. Static site on IPFS with dynamic GitHub data via external API.
+
+## Architecture
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────┐
+│  IPFS Website   │────▶│  Your Server     │────▶│  GitHub API │
+│  (static)       │     │  (caches 24hrs)  │     │  (GraphQL)  │
+└─────────────────┘     └──────────────────┘     └─────────────┘
+         │
+         ▼
+  axatbhardwaj.eth
+```
+
+- **Static Site**: Next.js 15 exported to IPFS, accessed via ENS
+- **Dynamic Data**: GitHub contributions fetched from your server at runtime
+- **No Redeployments**: Data updates without IPFS/ENS changes
 
 ## Stack
-- **Framework**: Next.js 15 (Static Export)
-- **Styling**: Tailwind CSS
-- **Package Manager**: Bun
-- **Language**: TypeScript
 
-## Getting Started
+| Component        | Technology                          |
+| ---------------- | ----------------------------------- |
+| Framework        | Next.js 15 (Static Export)          |
+| Styling          | Tailwind CSS + CSS Variables        |
+| Package Manager  | Bun                                 |
+| Language         | TypeScript                          |
+| Hosting          | IPFS (Pinata) + ENS                 |
+| Dynamic Data API | Bun server (see `server/`)          |
+| CI/CD            | GitHub Actions                      |
 
-### Prerequisites
-- [Bun](https://bun.sh) installed.
+## Development
 
-### Installation
 ```bash
+# Install dependencies
 bun install
-```
 
-### Development
-Run the development server:
-```bash
+# Start dev server
 bun run dev
-```
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Build & Deploy (IPFS)
-
-This project is configured for `next export` to generate a static site suitable for IPFS.
-
-### Build
-Generate the static `out` directory:
-```bash
+# Build static site
 bun run build
-```
 
-### Preview Static Build
-To preview the static site locally (mimicking IPFS):
-```bash
+# Preview build locally
 npx serve@latest out
 ```
-Or with Python:
+
+## Deployment
+
+### Static Site (IPFS)
+
+1. Push to `main` branch
+2. GitHub Actions builds and uploads to Pinata
+3. Update ENS content hash with new IPFS CID (manual, saves gas)
+
+### GitHub API Server
+
+See `server/README.md` for setup instructions.
+
 ```bash
-python3 -m http.server 3000 --directory out
+# Quick start
+cd server
+GITHUB_TOKEN=ghp_xxx bun run github-api.ts
 ```
 
-### Deployment
-Upload the contents of the `out/` directory to your IPFS pinning service (e.g., Pinata).
+## Design System
+
+### Theme
+
+- **Primary**: Neon green (`#00ff41`)
+- **Background**: Black (`#000000`)
+- **Font**: Geist Mono
+
+### Visual Elements
+
+- Corner decorations on cards (block-corner-*)
+- Hex pattern overlays on hover
+- Glow effects (shadow-glow-sm)
+- Gradient borders and accents
+
+## Project Structure
+
+```
+├── src/
+│   ├── app/           # Next.js pages and layouts
+│   ├── components/    # React UI components
+│   ├── data/          # Static data (projects, fallback GitHub data)
+│   └── lib/           # Utilities (MDX parsing, blog helpers)
+├── posts/             # MDX blog posts
+├── server/            # GitHub API server for dynamic data
+├── public/            # Static assets (favicon, resume)
+├── scripts/           # Automation scripts
+└── .github/workflows/ # CI/CD pipelines
+```
+
+## Key Features
+
+- **IPFS/ENS Native**: Static export with trailing slashes for IPFS compatibility
+- **Hybrid Data**: Static fallback + dynamic API for GitHub contributions
+- **Cyberpunk UI**: Neon green accents, terminal aesthetics, corner decorations
+- **Blog System**: MDX with Shiki syntax highlighting
+- **Keyboard Navigation**: [h]ome, [b]log, [p]rojects, [r]esume shortcuts
+
+## Environment Variables
+
+| Variable                       | Where     | Description                    |
+| ------------------------------ | --------- | ------------------------------ |
+| `NEXT_PUBLIC_GITHUB_API_URL`   | Build     | URL to GitHub API server       |
+| `PINATA_JWT`                   | GitHub CI | Pinata API token for IPFS      |
+| `GITHUB_TOKEN`                 | Server    | GitHub token for GraphQL API   |

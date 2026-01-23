@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://axatbhardwaj.eth.limo"),
   title: {
-    default: "Axat Bhardwaj",
+    default: "Axat Bhardwaj | Blockchain Engineer",
     template: "%s | Axat Bhardwaj",
   },
-  description: "Blockchain and Backend Engineer",
+  description: "Blockchain and Backend Engineer building decentralized systems",
   openGraph: {
     title: "Axat Bhardwaj",
-    description: "Blockchain and Backend Engineer",
+    description: "Blockchain and Backend Engineer building decentralized systems",
     url: "https://axatbhardwaj.eth.limo",
     siteName: "Axat Bhardwaj",
     locale: "en_US",
@@ -49,14 +49,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${geistMono.variable} antialiased min-h-screen font-mono`}
+        className={`${geistMono.variable} antialiased min-h-screen font-mono bg-background text-foreground`}
       >
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <Navbar />
-          {children}
+        {/* Main Container */}
+        <div className="relative min-h-screen">
+          {/* Content */}
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-8">
+            <Navbar />
+            <main>{children}</main>
+          </div>
         </div>
+        <Analytics />
       </body>
     </html>
   )

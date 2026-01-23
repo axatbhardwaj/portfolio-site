@@ -1,0 +1,34 @@
+# Systemd service file for GitHub API Server
+#
+# Installation:
+# 1. Copy to systemd: sudo cp github-api.service /etc/systemd/system/
+# 2. Edit the file to set your GITHUB_TOKEN and paths
+# 3. Reload systemd: sudo systemctl daemon-reload
+# 4. Enable service: sudo systemctl enable github-api
+# 5. Start service: sudo systemctl start github-api
+# 6. Check status: sudo systemctl status github-api
+
+[Unit]
+Description=GitHub Contributions API Server
+After=network.target
+
+[Service]
+Type=simple
+User=xzat
+WorkingDirectory=/home/xzat/personal/portfolio-site/server
+ExecStart=/home/xzat/.bun/bin/bun run github-api.ts
+
+# Environment variables
+Environment=PORT=3456
+Environment=GITHUB_TOKEN=your_github_token_here
+
+# Restart on failure
+Restart=on-failure
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

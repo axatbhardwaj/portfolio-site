@@ -1,8 +1,7 @@
 "use client"
-"use client"
-import { useRef, useEffect } from "react"
+import { useRef } from "react"
 import { ProjectCard } from "@/components/project-card"
-import { Github, ArrowRight } from "lucide-react"
+import { Github, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 
 export type Project = {
@@ -17,66 +16,96 @@ export type Project = {
 export function ProjectShowcase({ projects }: { projects: Project[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  const scrollLink = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 300 // Adjust scroll amount as needed
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      })
-    }
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollContainerRef.current) return
+    const scrollAmount = 320
+    scrollContainerRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    })
   }
 
   return (
     <div className="relative group">
-      <button 
-        onClick={() => scrollLink('left')}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-primary p-2 rounded-full backdrop-blur-sm border border-primary/20 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0 -ml-4"
+      {/* Navigation Buttons */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -ml-5 flex items-center justify-center shadow-glow-sm"
         aria-label="Scroll left"
       >
-        <ArrowRight className="w-6 h-6 rotate-180" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
 
-      <div 
+      {/* Scroll Container */}
+      <div
         ref={scrollContainerRef}
-        className="w-full overflow-x-auto pb-6 -mx-4 px-4 sm:px-0 sm:mx-0 snap-x snap-mandatory hide-scrollbar"
+        className="w-full overflow-x-auto pb-4 -mx-4 px-4 sm:px-0 sm:mx-0 snap-x snap-mandatory hide-scrollbar"
       >
-        <div className="flex gap-6 w-max">
-          {projects.map((project, index) => (
-            <div key={project.name} className="w-[85vw] sm:w-[350px] md:w-[280px] lg:w-[300px] flex-none snap-start">
+        <div className="flex gap-4 w-max items-stretch">
+          {projects.map((project) => (
+            <div
+              key={project.name}
+              className="w-[280px] sm:w-[300px] flex-none snap-start"
+            >
               <ProjectCard {...project} />
             </div>
           ))}
-          
+
           {/* GitHub Profile Card */}
-          <div className="w-[85vw] sm:w-[350px] md:w-[280px] lg:w-[300px] flex-none snap-start">
-             <Link 
+          <div className="w-[280px] sm:w-[300px] flex-none snap-start">
+            <Link
               href="https://github.com/axatbhardwaj"
               target="_blank"
-              className="group h-full p-6 border border-gray-800 bg-gray-900/30 rounded-lg flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-gray-900/50 transition-all duration-300"
+              className="group/card relative h-full p-6 bg-background-card border border-border-dim rounded-lg flex flex-col items-center justify-center text-center hover:border-primary/40 hover:shadow-glow-sm transition-all duration-300 overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mb-4 group-hover:bg-gray-700 transition-colors">
-                <Github className="w-8 h-8 text-white" />
+              {/* Corner Decorations */}
+              <div className="block-corner block-corner-tl" />
+              <div className="block-corner block-corner-tr" />
+              <div className="block-corner block-corner-bl" />
+              <div className="block-corner block-corner-br" />
+
+              {/* Hex Pattern */}
+              <div className="absolute inset-0 hex-pattern opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-xl bg-background-elevated border border-border-dim flex items-center justify-center mb-4 group-hover/card:border-primary/30 transition-colors">
+                  <Github className="w-7 h-7 text-foreground-muted group-hover/card:text-primary transition-colors" />
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-white font-mono">
+                  View More
+                </h3>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Explore all repositories and open source contributions
+                </p>
+                <div className="flex items-center gap-2 text-primary font-mono text-sm group-hover/card:gap-3 transition-all">
+                  @axatbhardwaj
+                  <ArrowRight className="w-4 h-4" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-white">View More</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Explore all my open source contributions and repositories on GitHub.
-              </p>
-              <div className="flex items-center gap-2 text-primary font-mono text-sm group-hover:gap-3 transition-all">
-                @axatbhardwaj <ArrowRight className="w-4 h-4" />
-              </div>
+
+              {/* Hover Glow */}
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none" />
             </Link>
           </div>
         </div>
       </div>
 
-      <button 
-        onClick={() => scrollLink('right')}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-primary p-2 rounded-full backdrop-blur-sm border border-primary/20 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0 -mr-4"
+      {/* Right Navigation Button */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -mr-5 flex items-center justify-center shadow-glow-sm"
         aria-label="Scroll right"
       >
-        <ArrowRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5" />
       </button>
+
+      {/* Scroll Indicator */}
+      <div className="flex justify-center mt-4 gap-1">
+        <div className="w-8 h-1 bg-primary/30 rounded-full" />
+        <div className="w-2 h-1 bg-border-dim rounded-full" />
+        <div className="w-2 h-1 bg-border-dim rounded-full" />
+      </div>
     </div>
   )
 }
