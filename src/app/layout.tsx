@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     template: "%s | Axat Bhardwaj",
   },
   description: "Blockchain and Backend Engineer building decentralized systems",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Axat Bhardwaj",
     description: "Blockchain and Backend Engineer building decentralized systems",
