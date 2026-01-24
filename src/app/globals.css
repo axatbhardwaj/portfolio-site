@@ -381,6 +381,13 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.5rem;
 }
 
+/* Shiki code blocks - force dark theme since site is always dark */
+.shiki,
+.shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
 .prose a {
   text-decoration: none;
   border-bottom: 1px solid var(--color-primary-dim);
