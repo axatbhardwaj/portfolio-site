@@ -1,0 +1,280 @@
+---
+title: "Building a Minimal ERC-4337 Smart Account from Scratch"
+date: "2025-01-25"
+author: "Axat Bhardwaj"
+description: "A complete ERC-4337 account abstraction implementation - smart contract wallets, CREATE2 factory, paymaster for gasless transactions, and an off-chain bundler. Built with Foundry, ethers.js, and Bun."
+tags: ["ERC-4337", "Account Abstraction", "Smart Contracts", "Ethereum", "Solidity", "Bundler", "Paymaster"]
+---
+
+# Building a Minimal ERC-4337 Smart Account from Scratch
+
+I built a complete ERC-4337 account abstraction implementation from scratch - a minimal smart contract wallet with a modular off-chain bundler and paymaster for gasless transactions. Here's how it works.
+
+**GitHub:** [github.com/axatbhardwaj/erc-4337](https://github.com/axatbhardwaj/erc-4337)
+
+---
+
+## Why Account Abstraction?
+
+Ethereum's current account model forces users to manage EOAs (Externally Owned Accounts) with private keys. ERC-4337 changes this by letting smart contracts act as primary accounts, enabling:
+
+- **Custom signature schemes** (multisig, social recovery, biometrics)
+- **Gas sponsorship** (apps pay for users via Paymasters)
+- **Batched transactions** (multiple actions in one tx)
+- **Upgradeable wallets** (fix bugs, add features)
+
+The best part? No protocol changes required - it's live on mainnet today.
+
+---
+
+## What I Built
+
+A complete ERC-4337 stack:
+
+| Component | Description |
+|-----------|-------------|
+| **MinimalAccount** | UUPS-upgradeable smart wallet with ECDSA validation |
+| **MinimalAccountFactory** | CREATE2 factory for deterministic deployment |
+| **BundlerPaymaster** | Sponsors gas for user operations |
+| **Bundler** | HTTP JSON-RPC server that batches and submits UserOps |
+
+### Deployed Contracts (Sepolia)
+
+| Contract | Address |
+|----------|---------|
+| **EntryPoint v0.7** | [0x0000000071727De22E5E9d8BAf0edAc6f37da032](https://sepolia.etherscan.io/address/0x0000000071727De22E5E9d8BAf0edAc6f37da032) |
+| **MinimalAccountFactory** | [0x38b37ff60729f548F8Df62A2dbeDedDFCCb539F5](https://sepolia.etherscan.io/address/0x38b37ff60729f548F8Df62A2dbeDedDFCCb539F5) |
+| **BundlerPaymaster** | [0x80306570EF600350484781082A4886C46C11D623](https://sepolia.etherscan.io/address/0x80306570EF600350484781082A4886C46C11D623) |
+
+---
+
+## Project Structure
+
+```
+src/
+├── contracts/
+│   ├── MinimalAccount.sol        # Smart contract wallet
+│   ├── MinimalAccountFactory.sol # Deploys wallets via CREATE2
+│   └── BundlerPaymaster.sol      # Sponsors gas for users
+├── constants.js                  # EntryPoint address & ABI
+├── wallet.js                     # EOA wallet setup
+├── deployFactory.js              # Deploy the factory
+├── deployPaymaster.js            # Deploy the paymaster
+├── setupAccount.js               # Compute address & fund account
+├── userOp.js                     # Build & sign UserOperations
+├── bundler.js                    # HTTP RPC server
+├── bundlerClient.js              # Client to talk to bundler
+└── utils.js                      # ENS resolution helper
+
+scripts/
+├── sendEth.js                    # Send ETH via UserOp
+├── sendEthSponsored.js           # Send ETH (gas sponsored)
+└── uniswapSwap.js                # Swap tokens on Uniswap
+```
+
+---
+
+## The Smart Contract Wallet
+
+The `MinimalAccount` is a UUPS-upgradeable smart wallet that validates ECDSA signatures:
+
+```solidity
+contract MinimalAccount is
+    BaseAccount,
+    TokenCallbackHandler,
+    UUPSUpgradeable,
+    Initializable
+{
+    using ECDSA for bytes32;
+    using MessageHashUtils for bytes32;
+
+    address public owner;
+    IEntryPoint private immutable _entryPoint;
+
+    function _validateSignature(
+        PackedUserOperation calldata userOp,
+        bytes32 userOpHash
+    ) internal view override returns (uint256 validationData) {
+        bytes32 hash = userOpHash.toEthSignedMessageHash();
+        if (owner != hash.recover(userOp.signature)) {
+            return 1; // SIG_VALIDATION_FAILED
+        }
+        return 0; // SUCCESS
+    }
+}
+```
+
+**Key design decisions:**
+- Inherits `BaseAccount` from eth-infinitism's reference implementation
+- Uses OpenZeppelin's ECDSA for secure signature recovery
+- UUPS pattern allows upgrades while keeping the same address
+- `TokenCallbackHandler` enables receiving ERC-721/1155 tokens
+
+---
+
+## The Factory (Counterfactual Deployment)
+
+The factory uses `CREATE2` for deterministic addresses - know your wallet address before deployment:
+
+```solidity
+contract MinimalAccountFactory {
+    MinimalAccount public immutable accountImplementation;
+
+    function createAccount(
+        address owner,
+        uint256 salt
+    ) public returns (MinimalAccount) {
+        address addr = getAddress(owner, salt);
+        if (addr.code.length > 0) {
+            return MinimalAccount(payable(addr));
+        }
+        return MinimalAccount(
+            payable(
+                new ERC1967Proxy{salt: bytes32(salt)}(
+                    address(accountImplementation),
+                    abi.encodeCall(MinimalAccount.initialize, (owner))
+                )
+            )
+        );
+    }
+}
+```
+
+**Why this matters:**
+- Users receive funds at their smart account address before it exists on-chain
+- The `initCode` in a UserOperation triggers deployment on first transaction
+- Same owner + salt = same address across all EVM chains
+
+---
+
+## The Paymaster (Gasless Transactions)
+
+The `BundlerPaymaster` sponsors gas for user operations:
+
+```bash
+# Send ETH without paying gas from your smart account
+bun scripts/sendEthSponsored.js vitalik.eth 0.001
+```
+
+The paymaster validates and pays for the operation, enabling:
+- Onboarding users without ETH
+- Subscription-based gas sponsorship
+- App-specific transaction subsidies
+
+---
+
+## The Bundler
+
+A minimal HTTP JSON-RPC server that:
+1. Accepts `eth_sendUserOperation` calls
+2. Batches UserOps in a mempool
+3. Submits them to the EntryPoint every 5 seconds
+
+```bash
+# Start the bundler
+bun src/bundler.js
+
+# Bundler runs on http://localhost:3000
+```
+
+Supported methods:
+- `eth_sendUserOperation` - Submit a UserOperation
+- `eth_supportedEntryPoints` - Get EntryPoint addresses
+- `eth_chainId` - Get chain ID
+
+---
+
+## How It All Fits Together
+
+```
+┌─────────────┐     UserOp      ┌───────────┐
+│   User/EOA  │ ───────────────▶│  Bundler  │
+└─────────────┘                 └─────┬─────┘
+                                      │
+                                      │ handleOps()
+                                      ▼
+                               ┌─────────────┐
+                               │ EntryPoint  │
+                               └─────┬───────┘
+                                     │
+              ┌──────────────────────┼──────────────────────┐
+              │                      │                      │
+              ▼                      ▼                      ▼
+       ┌─────────────┐      ┌───────────────┐      ┌─────────────┐
+       │   Factory   │      │ SmartAccount  │      │  Paymaster  │
+       │ (if needed) │      │  (validate)   │      │ (if used)   │
+       └─────────────┘      └───────────────┘      └─────────────┘
+```
+
+1. User creates and signs a `UserOperation`
+2. Bundler collects UserOps and calls `EntryPoint.handleOps()`
+3. EntryPoint validates each operation:
+   - If `initCode` present → calls Factory to deploy account
+   - If `paymasterAndData` present → Paymaster validates & pays gas
+   - Calls account's `validateUserOp` → verifies signature
+   - Executes the `callData` on the account
+
+---
+
+## Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/axatbhardwaj/erc-4337.git
+cd erc-4337
+
+# Install dependencies
+bun install
+
+# Set up environment
+export MNEMONIC="your twelve word mnemonic phrase here"
+export rpc="https://sepolia.infura.io/v3/YOUR_KEY"
+
+# Build contracts
+forge build
+
+# Deploy factory & paymaster (once)
+bun src/deployFactory.js
+bun src/deployPaymaster.js
+
+# Setup and fund your smart account
+bun src/setupAccount.js
+
+# Start the bundler
+bun src/bundler.js
+
+# Send ETH via your smart account
+bun scripts/sendEth.js <recipient> 0.001
+
+# Or with gas sponsored by paymaster
+bun scripts/sendEthSponsored.js <recipient> 0.001
+```
+
+---
+
+## Key Takeaways
+
+1. **ERC-4337 is live today** - No protocol upgrades needed, works on any EVM chain
+2. **Counterfactual deployment** - Know your address before deployment via CREATE2
+3. **Signature flexibility** - Replace ECDSA with anything (BLS, multisig, passkeys)
+4. **v0.7 packs gas params** - `accountGasLimits` and `gasFees` are packed uint256s
+5. **Paymasters unlock UX** - Gasless onboarding is now possible
+6. **ENS support** - Send to `.eth` names for better UX
+
+---
+
+## What's Next?
+
+- Implement **session keys** for dApp permissions
+- Explore **ERC-7579** for modular account features
+- Add **batch transactions** for multiple actions in one UserOp
+
+---
+
+*Built with Foundry, ethers.js, and Bun. Deployed on Sepolia using EntryPoint v0.7.*
+
+**Links:**
+- **GitHub Repo:** [github.com/axatbhardwaj/erc-4337](https://github.com/axatbhardwaj/erc-4337)
+- [ERC-4337 Spec](https://eips.ethereum.org/EIPS/eip-4337)
+- [eth-infinitism Reference Implementation](https://github.com/eth-infinitism/account-abstraction)
+- [EntryPoint v0.7 on Sepolia](https://sepolia.etherscan.io/address/0x0000000071727De22E5E9d8BAf0edAc6f37da032)
