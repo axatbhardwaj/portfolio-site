@@ -2,6 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import Link from "next/link"
 import { Children, createElement, isValidElement } from "react"
 import { codeToHtml } from "shiki"
+import { Mermaid } from "@/components/mermaid"
 
 function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
   let headers = data.headers.map((header, index) => (
@@ -70,6 +71,12 @@ async function Pre({
 
     if (!lang) {
       return <code {...props}>{children}</code>
+    }
+
+    // Handle Mermaid diagrams
+    if (lang === "mermaid") {
+      const chart = String(codeElement?.props.children).trim()
+      return <Mermaid chart={chart} />
     }
 
     const html = await codeToHtml(String(codeElement?.props.children), {
