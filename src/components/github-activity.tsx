@@ -37,7 +37,9 @@ function parseGitHubData(raw: typeof fallbackData): GitHubData {
 }
 
 export function GitHubActivity() {
-  const [githubData, setGithubData] = useState<GitHubData | null>(null)
+  const [githubData, setGithubData] = useState<GitHubData>(() =>
+    parseGitHubData(fallbackData)
+  )
   const [loading, setLoading] = useState(!!API_URL)
   const [error, setError] = useState(false)
 
