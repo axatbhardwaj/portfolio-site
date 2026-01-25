@@ -182,24 +182,13 @@ Supported methods:
 
 ## How It All Fits Together
 
-```
-┌─────────────┐     UserOp      ┌───────────┐
-│   User/EOA  │ ───────────────▶│  Bundler  │
-└─────────────┘                 └─────┬─────┘
-                                      │
-                                      │ handleOps()
-                                      ▼
-                               ┌─────────────┐
-                               │ EntryPoint  │
-                               └─────┬───────┘
-                                     │
-              ┌──────────────────────┼──────────────────────┐
-              │                      │                      │
-              ▼                      ▼                      ▼
-       ┌─────────────┐      ┌───────────────┐      ┌─────────────┐
-       │   Factory   │      │ SmartAccount  │      │  Paymaster  │
-       │ (if needed) │      │  (validate)   │      │ (if used)   │
-       └─────────────┘      └───────────────┘      └─────────────┘
+```mermaid
+flowchart TD
+    User["User/EOA"] -->|UserOp| Bundler["Bundler"]
+    Bundler -->|handleOps| EntryPoint["EntryPoint"]
+    EntryPoint --> Factory["Factory<br/>(if needed)"]
+    EntryPoint --> SmartAccount["SmartAccount<br/>(validate)"]
+    EntryPoint --> Paymaster["Paymaster<br/>(if used)"]
 ```
 
 1. User creates and signs a `UserOperation`
