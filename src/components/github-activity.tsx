@@ -1,13 +1,7 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { ActivityCalendar } from "react-activity-calendar"
 import fallbackData from "@/data/github-contributions.json"
-import { Github, Activity, GitCommit, Loader2 } from "lucide-react"
+import { Github, Activity, GitCommit } from "lucide-react"
 import Link from "next/link"
-
-// Configure your API endpoint here
-const API_URL = process.env.NEXT_PUBLIC_GITHUB_API_URL || null
 
 interface ContributionDay {
   contributionCount: number
@@ -37,39 +31,7 @@ function parseGitHubData(raw: typeof fallbackData): GitHubData {
 }
 
 export function GitHubActivity() {
-  const [githubData, setGithubData] = useState<GitHubData>(() =>
-    parseGitHubData(fallbackData)
-  )
-  const [loading, setLoading] = useState(!!API_URL)
-  const [error, setError] = useState(false)
-
-  useEffect(() => {
-    if (!API_URL) {
-      // No API configured, use static fallback
-      setGithubData(parseGitHubData(fallbackData))
-      setLoading(false)
-      return
-    }
-
-    async function fetchData() {
-      try {
-        const res = await fetch(API_URL, {
-          next: { revalidate: 3600 }, // Cache for 1 hour on client
-        })
-        if (!res.ok) throw new Error("Failed to fetch")
-        const data = await res.json()
-        setGithubData(parseGitHubData(data))
-      } catch {
-        // Fallback to static data on error
-        setError(true)
-        setGithubData(parseGitHubData(fallbackData))
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
+  const githubData = parseGitHubData(fallbackData)
 
   // Neon green theme matching the cyberpunk aesthetic
   const neonTheme = {
@@ -83,17 +45,15 @@ export function GitHubActivity() {
     ],
   }
 
-  const calendarData = githubData
-    ? githubData.weeks.flatMap((week) =>
-        week.contributionDays.map((day) => ({
-          date: day.date,
-          count: day.contributionCount,
-          level: levelMap[day.contributionLevel] ?? 0,
-        }))
-      )
-    : []
+  const calendarData = githubData.weeks.flatMap((week) =>
+    week.contributionDays.map((day) => ({
+      date: day.date,
+      count: day.contributionCount,
+      level: levelMap[day.contributionLevel] ?? 0,
+    }))
+  )
 
-  const totalContributions = githubData?.totalContributions ?? 0
+  const totalContributions = githubData.totalContributions
 
   return (
     <section className="animate-fade-in-up">
@@ -119,7 +79,7 @@ export function GitHubActivity() {
           <span>@axatbhardwaj</span>
           <span className="flex items-center gap-1.5 bg-background-card text-primary px-2.5 py-1 rounded border border-primary/20 text-xs group-hover:border-primary/50 transition-colors">
             <GitCommit className="w-3 h-3" />
-            {loading ? "..." : totalContributions.toLocaleString()}
+            {totalContributions.toLocaleString()}
           </span>
         </Link>
       </div>
@@ -139,26 +99,20 @@ export function GitHubActivity() {
 
           {/* Calendar */}
           <div className="relative z-10 overflow-x-auto hide-scrollbar">
-            {loading ? (
-              <div className="min-h-[140px] flex items-center justify-center">
-                <Loader2 className="w-6 h-6 text-primary animate-spin" />
-              </div>
-            ) : (
-              <div className="min-w-[700px] md:min-w-0 flex justify-center">
-                <ActivityCalendar
-                  data={calendarData}
-                  theme={neonTheme}
-                  labels={{
-                    totalCount: "{{count}} contributions in the last year",
-                  }}
-                  colorScheme="dark"
-                  blockSize={12}
-                  blockMargin={4}
-                  fontSize={12}
-                  showWeekdayLabels
-                />
-              </div>
-            )}
+            <div className="min-w-[700px] md:min-w-0 flex justify-center">
+              <ActivityCalendar
+                data={calendarData}
+                theme={neonTheme}
+                labels={{
+                  totalCount: "{{count}} contributions in the last year",
+                }}
+                colorScheme="dark"
+                blockSize={12}
+                blockMargin={4}
+                fontSize={12}
+                showWeekdayLabels
+              />
+            </div>
           </div>
 
           {/* Stats Row */}
@@ -168,7 +122,7 @@ export function GitHubActivity() {
               <span>
                 Daily avg:{" "}
                 <span className="text-primary">
-                  {loading ? "-" : Math.round(totalContributions / 365)}
+                  {Math.round(totalContributions / 365)}
                 </span>
               </span>
             </div>
@@ -185,14 +139,6 @@ export function GitHubActivity() {
                 ))}
               </div>
             </div>
-            {error && (
-              <>
-                <div className="w-px h-4 bg-border-default" />
-                <span className="text-xs font-mono text-yellow-500/70">
-                  cached data
-                </span>
-              </>
-            )}
           </div>
         </div>
       </div>

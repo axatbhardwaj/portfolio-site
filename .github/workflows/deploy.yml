@@ -3,6 +3,8 @@ name: Build and Deploy to IPFS
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # Daily at 06:00 UTC
   workflow_dispatch: # Manual trigger
 
 jobs:
@@ -21,9 +23,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build static site
+      - name: Fetch GitHub stats
         env:
-          NEXT_PUBLIC_GITHUB_API_URL: https://api.axatbhardwaj.xyz/api/github
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: bash scripts/fetch-stats.sh
+
+      - name: Build static site
         run: bun run build
 
       - name: Upload to IPFS via Pinata
