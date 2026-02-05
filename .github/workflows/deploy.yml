@@ -35,6 +35,19 @@ jobs:
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
 
+      - name: Update IPNS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -o StrictHostKeyChecking=accept-new $SERVER_USER@$SERVER_HOST \
+            "ipfs name publish --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
+
       - name: Summary
         run: |
           echo "### Deployment Complete" >> $GITHUB_STEP_SUMMARY
@@ -43,4 +56,4 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Preview**: https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**ENS Update**: Set content hash to \`ipfs://${{ steps.pinata.outputs.hash }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**IPNS**: Updated automatically via server" >> $GITHUB_STEP_SUMMARY
