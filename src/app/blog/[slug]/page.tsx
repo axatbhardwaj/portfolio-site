@@ -2,9 +2,11 @@ import { getPostBySlug, getPosts } from "@/lib/blog"
 import { notFound } from "next/navigation"
 import { MDX } from "./mdx"
 import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 function formatDate(date: string) {
@@ -16,7 +18,8 @@ function formatDate(date: string) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
+  const { slug } = await params
+  const post = getPostBySlug(slug)
   if (!post) {
     return notFound()
   }
@@ -49,18 +52,26 @@ export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export default function PostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug)
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params
+  const post = getPostBySlug(slug)
   if (!post) {
     return notFound()
   }
 
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
-      <h1 className="text-4xl font-bold mb-4 text-white">
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-2 text-[#00d4ff] text-xs heading-font tracking-wide hover:brightness-125 mb-8 group"
+      >
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        back to blog
+      </Link>
+      <h1 className="text-4xl font-bold mb-4 text-white heading-font">
         {post.metadata.title}
       </h1>
-      <p className="text-gray-400 mb-8">{formatDate(post.metadata.date)}</p>
+      <p className="text-[#555] text-sm mb-8">{formatDate(post.metadata.date)}</p>
       <article className="prose prose-invert prose-lg max-w-none">
         <MDX source={post.content} />
       </article>

@@ -1,4 +1,3 @@
-import { ScrambleText } from "@/components/scramble-text"
 import { PostsList } from "@/components/posts-list"
 import { getPosts } from "@/lib/blog"
 import { Metadata } from "next"
@@ -15,41 +14,36 @@ export default async function BlogPage() {
       {/* Page Header */}
       <div className="mb-12">
         <div className="flex items-center gap-3 mb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-secondary text-lg">*</span>
-            <h1 className="text-4xl font-bold text-white font-mono">
-              <ScrambleText text="blog" />
-            </h1>
-          </div>
-          <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
+          <div className="w-1.5 h-6 rounded-full bg-[#00d4ff]" style={{ boxShadow: "0 0 10px rgba(0,212,255,0.3)" }} />
+          <h1 className="text-3xl sm:text-4xl font-bold text-white heading-font tracking-tight">blog</h1>
         </div>
 
-        <p className="text-foreground-muted font-mono text-sm mb-6">
+        <p className="text-[#666] text-sm mb-6">
           Writings on blockchain, cryptography, and decentralized systems.
         </p>
 
         {/* Keyboard Shortcuts */}
-        <div className="hidden sm:flex items-center gap-6 text-xs text-foreground-muted font-mono p-4 bg-background-card/30 border border-border-dim rounded-lg">
+        <div className="hidden sm:flex items-center gap-6 text-xs font-mono p-4 glass">
           <div className="flex items-center gap-2">
-            <Search className="w-3.5 h-3.5 text-secondary/60" />
+            <Search className="w-3.5 h-3.5 text-[#00d4ff]/40" />
             <span>
               press{" "}
-              <kbd className="px-1.5 py-0.5 bg-background-card border border-border-dim rounded text-foreground">
+              <kbd className="px-1.5 py-0.5 bg-white/[0.04] border border-white/[0.06] rounded text-white text-[10px]">
                 /
               </kbd>{" "}
               to search
             </span>
           </div>
-          <div className="w-px h-4 bg-border-dim" />
+          <div className="w-px h-4 bg-white/[0.06]" />
           <div className="flex items-center gap-2">
-            <ArrowUp className="w-3.5 h-3.5 text-secondary/60" />
-            <ArrowDown className="w-3.5 h-3.5 text-secondary/60" />
+            <ArrowUp className="w-3.5 h-3.5 text-[#00d4ff]/40" />
+            <ArrowDown className="w-3.5 h-3.5 text-[#00d4ff]/40" />
             <span>
-              <kbd className="px-1.5 py-0.5 bg-background-card border border-border-dim rounded text-foreground">
+              <kbd className="px-1.5 py-0.5 bg-white/[0.04] border border-white/[0.06] rounded text-white text-[10px]">
                 j
               </kbd>
               {" / "}
-              <kbd className="px-1.5 py-0.5 bg-background-card border border-border-dim rounded text-foreground">
+              <kbd className="px-1.5 py-0.5 bg-white/[0.04] border border-white/[0.06] rounded text-white text-[10px]">
                 k
               </kbd>{" "}
               to navigate
@@ -60,11 +54,11 @@ export default async function BlogPage() {
 
       {/* Posts Count */}
       <div className="flex items-center gap-3 mb-6">
-        <FileText className="w-4 h-4 text-secondary/60" />
-        <span className="text-xs font-mono text-foreground-muted">
+        <FileText className="w-4 h-4 text-[#00d4ff]/40" />
+        <span className="text-[10px] font-mono text-[#555]">
           {posts.length} posts
         </span>
-        <div className="flex-1 h-px bg-border-dim" />
+        <div className="flex-1 h-px bg-white/[0.06]" />
       </div>
 
       {/* Posts List */}

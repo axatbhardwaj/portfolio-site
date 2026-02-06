@@ -80,14 +80,14 @@ export function Posts({ posts }: PostsProps) {
       {/* Search Bar */}
       {isSearching && (
         <div className="fixed bottom-4 left-4 right-4 max-w-2xl mx-auto z-50">
-          <div className="bg-background-card/95 backdrop-blur-md border border-secondary/30 rounded-lg p-3 shadow-glow-sm">
-            <div className="flex items-center gap-3 text-foreground-muted font-mono">
-              <Search className="w-4 h-4 text-secondary" />
+          <div className="bg-[#050508]/95 backdrop-blur-xl border border-[#00d4ff]/20 rounded-2xl p-4 shadow-lg">
+            <div className="flex items-center gap-3 font-mono">
+              <Search className="w-4 h-4 text-[#00d4ff]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent outline-none text-foreground placeholder:text-foreground-muted"
+                className="flex-1 bg-transparent outline-none text-white placeholder:text-[#555] text-sm"
                 autoFocus
                 placeholder="search posts..."
                 aria-label="Search posts"
@@ -105,13 +105,13 @@ export function Posts({ posts }: PostsProps) {
                   setIsSearching(false)
                   setSearchQuery("")
                 }}
-                className="p-1 hover:bg-secondary/10 rounded transition-colors"
+                className="p-1 hover:bg-[#00d4ff]/10 rounded transition-colors"
               >
-                <X className="w-4 h-4 text-foreground-muted hover:text-secondary" />
+                <X className="w-4 h-4 text-[#555] hover:text-[#00d4ff]" />
               </button>
             </div>
             {/* Results count */}
-            <div className="mt-2 pt-2 border-t border-border-dim text-xs text-foreground-muted">
+            <div className="mt-2 pt-2 border-t border-white/[0.06] text-[10px] text-[#555]">
               {filteredPosts.length} {filteredPosts.length === 1 ? "result" : "results"}
               {searchQuery && ` for "${searchQuery}"`}
             </div>
@@ -120,11 +120,12 @@ export function Posts({ posts }: PostsProps) {
       )}
 
       {/* Posts List */}
-      <div className="space-y-3">
+      <div className="glass overflow-hidden">
         {filteredPosts.map((item, index) => (
           <div
             key={item.slug}
             ref={isSearching && index === selectedIndex ? selectedItemRef : null}
+            className="border-t border-white/[0.03] first:border-0"
           >
             <PostItem
               post={item}
@@ -137,7 +138,7 @@ export function Posts({ posts }: PostsProps) {
       {/* Empty State */}
       {filteredPosts.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-foreground-muted font-mono text-sm">
+          <p className="text-[#555] font-mono text-sm">
             No posts found{searchQuery && ` for "${searchQuery}"`}
           </p>
         </div>
