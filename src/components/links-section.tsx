@@ -45,53 +45,40 @@ export function LinksSection() {
     <section className="animate-fade-in-up">
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-8">
-        <div className="flex items-center gap-2">
-          <span className="text-primary text-lg">*</span>
-          <h2 className="text-2xl font-bold text-white font-mono">links</h2>
+        <div className="w-1.5 h-6 rounded-full bg-[#00ff41]" style={{ boxShadow: "0 0 10px rgba(0,255,65,0.3)" }} />
+        <h2 className="text-xl font-bold text-white heading-font tracking-tight">links</h2>
+      </div>
+
+      {/* Links Container */}
+      <div className="glass p-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {links.map((link) => {
+            const Icon = link.icon
+            return (
+              <a
+                key={link.title}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all"
+              >
+                {/* Icon */}
+                <div className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.05] flex items-center justify-center group-hover:border-[#00ff41]/20 group-hover:bg-[#00ff41]/[0.05] transition-all flex-shrink-0">
+                  <Icon className="w-3.5 h-3.5 text-[#555] group-hover:text-[#00ff41] transition-colors" />
+                </div>
+                {/* Title */}
+                <span className="text-[11px] text-[#666] group-hover:text-white transition-colors">{link.title}</span>
+              </a>
+            )
+          })}
         </div>
-        <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
       </div>
 
-      {/* Links Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-        {links.map((link) => {
-          const Icon = link.icon
-          return (
-            <Link
-              key={link.title}
-              href={link.href}
-              target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-              className="group relative p-4 bg-background-card/30 border border-border-dim rounded-lg transition-all duration-300 hover:border-primary/30 hover:bg-background-card/60 flex flex-col items-center text-center"
-            >
-              {/* Icon */}
-              <div className="w-10 h-10 rounded-lg bg-background-card border border-border-dim flex items-center justify-center mb-3 group-hover:border-primary/30 group-hover:bg-primary/5 transition-all">
-                <Icon className="w-4 h-4 text-foreground-muted group-hover:text-primary transition-colors" />
-              </div>
-
-              {/* Title */}
-              <span className="text-sm font-mono text-foreground-muted group-hover:text-primary transition-colors flex items-center gap-1">
-                {link.title}
-                <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </span>
-
-              {/* Description */}
-              <span className="text-xs text-gray-500 mt-1 hidden sm:block">
-                {link.description}
-              </span>
-
-              {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-lg pointer-events-none" />
-            </Link>
-          )
-        })}
-      </div>
-
-      {/* Footer Note */}
-      <div className="mt-8 pt-8 border-t border-border-default">
-        <p className="text-xs text-gray-500 font-mono text-center">
-          <span className="text-primary">&gt;</span> Built with Next.js • Deployed on IPFS •{" "}
-          <span className="text-primary">axatbhardwaj.eth</span>
-        </p>
+      {/* Footer */}
+      <div className="glow-line mt-8" />
+      <div className="flex items-center justify-between mt-6 text-[10px] text-[#333]">
+        <span>Next.js • IPFS • ENS</span>
+        <span className="text-[#00ff41]/30 tracking-wider">axatbhardwaj.eth</span>
       </div>
     </section>
   )

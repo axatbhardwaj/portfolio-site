@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Briefcase } from "lucide-react"
+import { ArrowUpRight, Briefcase, ExternalLink } from "lucide-react"
 
 export type Item = {
   title: string
@@ -25,63 +25,48 @@ export function SectionList({
   return (
     <section className="mb-16 animate-fade-in-up">
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="flex items-center gap-2">
-          <span className="text-primary text-lg">*</span>
-          <h2 className="text-2xl font-bold text-white font-mono">{title}</h2>
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-6 rounded-full bg-[#00d4ff]" style={{ boxShadow: "0 0 10px rgba(0,212,255,0.3)" }} />
+          <h2 className="text-xl font-bold text-white heading-font tracking-tight">{title}</h2>
         </div>
-        <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
       </div>
 
       {/* Items */}
-      <div className="space-y-6">
+      <div className="glass overflow-hidden">
         {items.map((item, index) => (
-          <Link
+          <a
             key={item.title}
             href={item.href}
             target="_blank"
-            className="group block relative"
+            rel="noopener noreferrer"
+            className="group flex items-start gap-5 px-6 sm:px-8 py-5 transition-all hover:bg-white/[0.015] border-t border-white/[0.03] first:border-0"
           >
-            <div className="relative p-5 bg-background-card/30 border border-border-dim rounded-lg transition-all duration-300 hover:border-primary/30 hover:bg-background-card/60">
-              {/* Timeline Connector */}
+            {/* Timeline */}
+            <div className="flex flex-col items-center pt-1.5 flex-shrink-0">
+              <div className="w-2 h-2 rounded-full border border-[#333] group-hover:border-[#00ff41] group-hover:bg-[#00ff41]/40 transition-all" />
               {index < items.length - 1 && (
-                <div className="absolute left-8 top-full w-px h-6 bg-gradient-to-b from-border-dim to-transparent" />
+                <div className="w-px h-full mt-2 bg-gradient-to-b from-white/[0.06] to-transparent min-h-[40px]" />
               )}
-
-              <div className="flex items-start gap-4">
-                {/* Icon */}
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-background-card border border-border-dim flex items-center justify-center group-hover:border-primary/30 transition-colors">
-                  <Briefcase className="w-4 h-4 text-foreground-muted group-hover:text-primary transition-colors" />
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <h3 className="text-lg font-semibold text-white group-hover:text-primary transition-colors font-mono flex items-center gap-2">
-                      {item.title}
-                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </h3>
-                    {item.period && (
-                      <span className="text-xs text-foreground-muted font-mono bg-background-card px-2 py-1 rounded border border-border-dim flex-shrink-0">
-                        {item.period}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-sm text-primary/80 font-mono mb-2">
-                    {item.role}
-                  </p>
-
-                  <p className="text-sm text-gray-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Hover Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-lg pointer-events-none" />
             </div>
-          </Link>
+
+            {/* Content */}
+            <div className="flex-1 min-w-0 pb-1">
+              <div className="flex items-start justify-between gap-3 mb-1.5">
+                <div>
+                  <h3 className="text-sm font-bold text-white group-hover:text-[#00ff41] transition-colors heading-font inline-flex items-center gap-2">
+                    {item.title}
+                    <ExternalLink className="w-3 h-3 text-[#333] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </h3>
+                  <p className="text-[11px] text-[#00d4ff]/50 mt-0.5">{item.role}</p>
+                </div>
+                {item.period && (
+                  <span className="text-[10px] text-[#333] tracking-wider flex-shrink-0">{item.period}</span>
+                )}
+              </div>
+              <p className="text-[11px] text-[#555] leading-[1.7]">{item.description}</p>
+            </div>
+          </a>
         ))}
       </div>
 
@@ -89,7 +74,7 @@ export function SectionList({
       {viewAllHref && (
         <Link
           href={viewAllHref}
-          className="inline-flex items-center gap-2 mt-8 text-primary hover:glow-text group font-mono text-sm"
+          className="inline-flex items-center gap-2 mt-8 text-[#00ff41] hover:glow-text group font-mono text-sm"
         >
           {viewAllText}
           <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
