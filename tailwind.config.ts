@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         mono: ["var(--font-geist-mono)"],
+        display: ["var(--font-space-grotesk)"],
       },
       colors: {
         background: "var(--background)",
@@ -36,6 +37,10 @@ export default {
         "float": "float 3s ease-in-out infinite",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
         "data-stream": "dataStream 3s linear infinite",
+        "status-pulse": "statusPulse 2s ease-in-out infinite",
+        "orb-drift-1": "orbDrift1 25s ease-in-out infinite",
+        "orb-drift-2": "orbDrift2 30s ease-in-out infinite",
+        "orb-drift-3": "orbDrift3 35s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -62,12 +67,31 @@ export default {
           "0%": { backgroundPosition: "0% 0%" },
           "100%": { backgroundPosition: "0% 200%" },
         },
+        statusPulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.4" },
+        },
+        orbDrift1: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "33%": { transform: "translate(-40px, 30px)" },
+          "66%": { transform: "translate(20px, -20px)" },
+        },
+        orbDrift2: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "50%": { transform: "translate(50px, -30px)" },
+        },
+        orbDrift3: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "25%": { transform: "translate(-30px, 40px)" },
+          "75%": { transform: "translate(40px, -20px)" },
+        },
       },
       boxShadow: {
         "glow-sm": "0 0 10px rgba(0, 255, 65, 0.15)",
         "glow-md": "0 0 20px rgba(0, 255, 65, 0.15), 0 0 40px rgba(0, 255, 65, 0.08)",
         "glow-lg": "0 0 30px rgba(0, 255, 65, 0.2), 0 0 60px rgba(0, 255, 65, 0.1)",
         "inner-glow": "inset 0 0 30px rgba(0, 255, 65, 0.08)",
+        "glow-line": "0 0 10px rgba(0,255,65,0.3)",
       },
       backgroundImage: {
         "grid-pattern": `
