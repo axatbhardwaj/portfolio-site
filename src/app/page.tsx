@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Header } from "@/components/header"
 import { Item, SectionList } from "@/components/section-list"
 import { BlogSection } from "@/components/blog-section"
@@ -6,6 +7,7 @@ import { SpotlightShowcase } from "@/components/spotlight-showcase"
 import { GitHubActivity } from "@/components/github-activity"
 import { GitHubProjects } from "@/components/github-projects"
 import { spotlightProjects } from "@/data/projects"
+import { ChevronRight } from "lucide-react"
 
 const workItems: Item[] = [
   {
@@ -44,33 +46,33 @@ const workItems: Item[] = [
 
 export default function HomePage() {
   return (
-    <div className="space-y-24">
+    <div className="space-y-20">
       <Header />
 
       {/* Spotlight Projects Section */}
       <section className="animate-fade-in-up">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="flex items-center gap-2">
-            <span className="text-primary text-lg">*</span>
-            <h2 className="text-2xl font-bold text-white font-mono">
-              selected work
-            </h2>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-6 rounded-full bg-[#00ff41]" style={{ boxShadow: "0 0 10px rgba(0,255,65,0.3)" }} />
+            <h2 className="text-xl font-bold text-white heading-font tracking-tight">selected work</h2>
           </div>
-          <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
+          <Link href="/projects" className="flex items-center gap-1.5 text-[11px] text-[#555] hover:text-[#00ff41] transition-colors">
+            View all <ChevronRight className="w-3 h-3" />
+          </Link>
         </div>
         <SpotlightShowcase projects={spotlightProjects} />
       </section>
 
       {/* Latest Projects Section */}
       <section className="animate-fade-in-up">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="flex items-center gap-2">
-            <span className="text-primary text-lg">*</span>
-            <h2 className="text-2xl font-bold text-white font-mono">
-              latest projects
-            </h2>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-6 rounded-full bg-[#00ff41]" style={{ boxShadow: "0 0 10px rgba(0,255,65,0.3)" }} />
+            <h2 className="text-xl font-bold text-white heading-font tracking-tight">latest projects</h2>
           </div>
-          <div className="flex-1 h-px bg-gradient-to-r from-border-dim to-transparent" />
+          <a href="https://github.com/axatbhardwaj" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[11px] text-[#555] hover:text-[#00ff41] transition-colors">
+            View all <ChevronRight className="w-3 h-3" />
+          </a>
         </div>
         <GitHubProjects />
       </section>
