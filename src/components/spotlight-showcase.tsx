@@ -1,108 +1,90 @@
-"use client"
-import { useRef } from "react"
+import Link from "next/link"
 import {
-  DetailedProjectCard,
   DetailedProjectProps,
 } from "@/components/detailed-project-card"
-import { ArrowRight, ChevronLeft, ChevronRight, Layers } from "lucide-react"
+import { ArrowUpRight, ArrowRight, Layers } from "lucide-react"
 
 export function SpotlightShowcase({
   projects,
 }: {
   projects: DetailedProjectProps[]
 }) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return
-    const scrollAmount = 520
-    scrollContainerRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    })
-  }
-
   return (
-    <div className="relative group">
-      {/* Left Navigation Button */}
-      <button
-        onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -ml-5 flex items-center justify-center shadow-glow-sm"
-        aria-label="Scroll left"
-      >
-        <ChevronLeft className="w-5 h-5" />
-      </button>
+    <div className="grid grid-cols-12 gap-3">
+      {projects.map((project, i) => {
+        const colSpan = i === 0 ? "col-span-12 lg:col-span-7" : i === 1 ? "col-span-12 lg:col-span-5" : "col-span-12"
+        return (
+          <a key={i} href={project.href} target="_blank" rel="noopener noreferrer" className={`group ${colSpan}`}>
+            <div className="glass shine-sweep p-6 sm:p-7 h-full">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#00ff41]/25 via-[#00d4ff]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Scroll Container */}
-      <div
-        ref={scrollContainerRef}
-        className="w-full overflow-x-auto pb-4 -mx-4 px-4 sm:px-0 sm:mx-0 snap-x snap-mandatory hide-scrollbar"
-      >
-        <div className="flex gap-6 w-max items-stretch">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="w-[85vw] sm:w-[500px] flex-none snap-start"
-            >
-              <DetailedProjectCard {...project} />
-            </div>
-          ))}
-
-          {/* View All Projects Card */}
-          <div className="w-[85vw] sm:w-[350px] flex-none snap-start">
-            <a
-              href="/projects"
-              className="group/card relative h-full p-8 bg-background-card border border-border-dim rounded-xl flex flex-col items-center justify-center text-center hover:border-primary/40 hover:shadow-glow-sm transition-all duration-300 overflow-hidden"
-            >
-              {/* Corner Decorations */}
-              <div className="block-corner block-corner-tl" />
-              <div className="block-corner block-corner-tr" />
-              <div className="block-corner block-corner-bl" />
-              <div className="block-corner block-corner-br" />
-
-              {/* Hex Pattern */}
-              <div className="absolute inset-0 hex-pattern opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-
-              {/* Content */}
               <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-background-elevated border border-border-dim flex items-center justify-center mb-6 group-hover/card:border-primary/30 transition-colors">
-                  <Layers className="w-8 h-8 text-foreground-muted group-hover/card:text-primary transition-colors" />
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <span className="text-[9px] text-[#00ff41]/50 font-bold tracking-[0.2em]">{String(i + 1).padStart(2, "0")}</span>
+                      <h3 className="text-base font-bold text-white group-hover:text-[#00ff41] transition-colors heading-font">
+                        {project.title}
+                      </h3>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#333] group-hover:text-[#00ff41] transition-colors opacity-0 group-hover:opacity-100" />
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-[#555]">
+                      <span>{project.role}</span>
+                      <span className="w-0.5 h-0.5 rounded-full bg-[#333]" />
+                      <span>{project.period}</span>
+                    </div>
+                  </div>
+
+                  {project.impactStats && project.impactStats.length > 0 && (
+                    <div className="flex gap-5">
+                      {project.impactStats.map((stat, idx) => (
+                        <div key={idx} className="text-right">
+                          <div className="text-lg font-bold text-[#00ff41] heading-font" style={{ textShadow: "0 0 15px rgba(0,255,65,0.15)" }}>
+                            {stat.value}
+                          </div>
+                          <div className="text-[8px] text-[#444] uppercase tracking-[0.15em]">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-white font-mono">
-                  View All Projects
-                </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
-                  Explore the complete portfolio of work, experiments, and open
-                  source contributions.
+
+                <p className="text-[12px] text-[#666] leading-[1.7] mb-5">
+                  {project.description}
                 </p>
-                <div className="flex items-center gap-2 text-primary font-mono text-sm group-hover/card:gap-3 transition-all">
-                  Explore Archive
-                  <ArrowRight className="w-4 h-4" />
+
+                <div className="flex flex-wrap gap-1.5">
+                  {project.techStack.map((tech) => (
+                    <span key={tech} className="text-[9px] px-2 py-0.5 rounded-md bg-white/[0.02] border border-white/[0.04] text-[#666] group-hover:text-[#888] group-hover:border-white/[0.08] transition-all">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
+            </div>
+          </a>
+        )
+      })}
 
-              {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none" />
-            </a>
+      <Link href="/projects" className="col-span-12">
+        <div className="glass h-full p-8 flex flex-col items-center justify-center text-center group border-dashed hover:border-[#00ff41]/15 transition-all">
+          <div className="relative z-10">
+            <div className="w-16 h-16 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-center mb-6 group-hover:border-[#00ff41]/30 transition-colors">
+              <Layers className="w-8 h-8 text-[#555] group-hover:text-[#00ff41] transition-colors" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3 text-white heading-font">
+              View All Projects
+            </h3>
+            <p className="text-[13px] text-[#666] mb-6 leading-relaxed max-w-md">
+              Explore the complete portfolio of work, experiments, and open source contributions.
+            </p>
+            <div className="flex items-center gap-2 text-[#00ff41] text-sm group-hover:gap-3 transition-all heading-font">
+              Explore Archive
+              <ArrowRight className="w-4 h-4" />
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Right Navigation Button */}
-      <button
-        onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -mr-5 flex items-center justify-center shadow-glow-sm"
-        aria-label="Scroll right"
-      >
-        <ChevronRight className="w-5 h-5" />
-      </button>
-
-      {/* Scroll Indicator */}
-      <div className="flex justify-center mt-4 gap-1">
-        <div className="w-8 h-1 bg-primary/30 rounded-full" />
-        <div className="w-2 h-1 bg-border-dim rounded-full" />
-        <div className="w-2 h-1 bg-border-dim rounded-full" />
-      </div>
+      </Link>
     </div>
   )
 }

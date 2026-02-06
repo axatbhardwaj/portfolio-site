@@ -30,7 +30,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
       {/* Navigation Buttons */}
       <button
         onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -ml-5 flex items-center justify-center shadow-glow-sm"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:border-[#00ff41]/20 hover:bg-[#00ff41]/[0.05] text-[#555] hover:text-[#00ff41] backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -ml-5 flex items-center justify-center"
         aria-label="Scroll left"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -56,36 +56,24 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
             <Link
               href="https://github.com/axatbhardwaj"
               target="_blank"
-              className="group/card relative h-full p-6 bg-background-card border border-border-dim rounded-lg flex flex-col items-center justify-center text-center hover:border-primary/40 hover:shadow-glow-sm transition-all duration-300 overflow-hidden"
+              className="group/card glass shine-sweep h-full p-6 flex flex-col items-center justify-center text-center relative"
             >
-              {/* Corner Decorations */}
-              <div className="block-corner block-corner-tl" />
-              <div className="block-corner block-corner-tr" />
-              <div className="block-corner block-corner-bl" />
-              <div className="block-corner block-corner-br" />
-
-              {/* Hex Pattern */}
-              <div className="absolute inset-0 hex-pattern opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-
               {/* Content */}
               <div className="relative z-10">
-                <div className="w-14 h-14 rounded-xl bg-background-elevated border border-border-dim flex items-center justify-center mb-4 group-hover/card:border-primary/30 transition-colors">
-                  <Github className="w-7 h-7 text-foreground-muted group-hover/card:text-primary transition-colors" />
+                <div className="w-14 h-14 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-4 group-hover/card:border-[#00ff41]/20 transition-colors">
+                  <Github className="w-7 h-7 text-[#555] group-hover/card:text-[#00ff41] transition-colors" />
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-white font-mono">
+                <h3 className="text-lg font-bold mb-2 text-white heading-font group-hover/card:text-[#00ff41] transition-colors">
                   View More
                 </h3>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                <p className="text-[#666] text-xs mb-4 leading-relaxed">
                   Explore all repositories and open source contributions
                 </p>
-                <div className="flex items-center gap-2 text-primary font-mono text-sm group-hover/card:gap-3 transition-all">
+                <div className="flex items-center gap-2 text-[#00ff41] text-xs group-hover/card:gap-3 transition-all">
                   @axatbhardwaj
                   <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
-
-              {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none" />
             </Link>
           </div>
         </div>
@@ -94,7 +82,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
       {/* Right Navigation Button */}
       <button
         onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background-card/90 hover:bg-background-card border border-border-dim hover:border-primary/50 text-foreground-muted hover:text-primary rounded-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -mr-5 flex items-center justify-center shadow-glow-sm"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:border-[#00ff41]/20 hover:bg-[#00ff41]/[0.05] text-[#555] hover:text-[#00ff41] backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -mr-5 flex items-center justify-center"
         aria-label="Scroll right"
       >
         <ChevronRight className="w-5 h-5" />
@@ -102,9 +90,9 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
 
       {/* Scroll Indicator */}
       <div className="flex justify-center mt-4 gap-1">
-        <div className="w-8 h-1 bg-primary/30 rounded-full" />
-        <div className="w-2 h-1 bg-border-dim rounded-full" />
-        <div className="w-2 h-1 bg-border-dim rounded-full" />
+        <div className="w-6 h-1 bg-[#00ff41]/20 rounded-full" />
+        <div className="w-2 h-1 bg-white/[0.05] rounded-full" />
+        <div className="w-2 h-1 bg-white/[0.05] rounded-full" />
       </div>
     </div>
   )
