@@ -40,7 +40,7 @@ export function DetailedProjectCard({
           <div className="flex-1">
             {index !== undefined && (
               <div className="text-[9px] text-[#00ff41]/50 tracking-[0.2em] font-bold mb-2">
-                {String(index).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")}
               </div>
             )}
 
