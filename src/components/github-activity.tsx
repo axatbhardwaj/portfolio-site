@@ -1,5 +1,6 @@
 "use client"
 
+
 import { ActivityCalendar } from "react-activity-calendar"
 import fallbackData from "@/data/github-contributions.json"
 import { Github, Activity, GitCommit } from "lucide-react"

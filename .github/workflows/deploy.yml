@@ -3,6 +3,8 @@ name: Build and Deploy to IPFS
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # Daily at 06:00 UTC
   workflow_dispatch: # Manual trigger
 
 jobs:
@@ -20,6 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: bun install
+
+      - name: Fetch GitHub stats
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: bash scripts/fetch-stats.sh
 
       - name: Build static site
         run: bun run build
@@ -44,7 +51,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts 2>/dev/null
           ssh -o StrictHostKeyChecking=accept-new $SERVER_USER@$SERVER_HOST \
-            "ipfs name publish --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
+            "ipfs name publish --resolve=false --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
 
       - name: Summary
         run: |
