@@ -1,50 +1,50 @@
 [
   {
-    "name": "Subgraph-Sentinel",
-    "description": "Bun + Grammy Telegram bot that watches The Graph subgraphs for fee regressions, KPI drops, and fetch failures.",
+    "name": "Haoshoku",
+    "description": "Haoshoku is a modular, multi-distro Linux setup and configuration toolkit. It automates the installation of essential applications, developer tools, terminal configs, and user environment tweaks for several popular Linux distributions",
+    "url": "https://github.com/axatbhardwaj/Haoshoku",
+    "stars": 1,
     "language": "JavaScript",
+    "color": "#f1e05a"
+  },
+  {
+    "name": "geth-house-spin",
+    "description": "No description",
+    "url": "https://github.com/axatbhardwaj/geth-house-spin",
+    "stars": 2,
+    "language": "Shell",
+    "color": "#89e051"
+  },
+  {
+    "name": "AnimeQuote-oracle",
+    "description": "integrating external api's with Smart contract on chain , This one fetches quote from animechan.io ",
+    "url": "https://github.com/axatbhardwaj/AnimeQuote-oracle",
     "stars": 0,
-    "url": "https://github.com/axatbhardwaj/Subgraph-Sentinel",
-    "color": "#f7df1e"
+    "language": "Solidity",
+    "color": "#AA6746"
   },
   {
     "name": "bodhi",
-    "description": "Decentralized AI for everyone. A TypeScript-based project exploring decentralized artificial intelligence.",
-    "language": "TypeScript",
-    "stars": 0,
+    "description": "Decentralized AI for everyone",
     "url": "https://github.com/axatbhardwaj/bodhi",
-    "color": "#3178c6"
-  },
-  {
-    "name": "memebase-bot",
-    "description": "Telegram bot analyzing memebase token contract for game stats (24h). Built with Python.",
-    "language": "Python",
     "stars": 0,
-    "url": "https://github.com/axatbhardwaj/memebase-game-stats-bot",
-    "color": "#3572A5"
-  },
-  {
-    "name": "Veridian",
-    "description": "ETHGlobal New Delhi 2025 hackathon project. Built with TypeScript.",
     "language": "TypeScript",
-    "stars": 0,
-    "url": "https://github.com/axatbhardwaj/Veridian",
     "color": "#3178c6"
   },
   {
-    "name": "Haoshoku",
-    "description": "Toolkit automating installation of essential dev tools and terminal configs for Linux distributions.",
+    "name": "arbitrage-bot",
+    "description": "A simple aribtrage Bot ",
+    "url": "https://github.com/axatbhardwaj/arbitrage-bot",
+    "stars": 1,
     "language": "JavaScript",
-    "stars": 0,
-    "url": "https://github.com/axatbhardwaj/Haoshoku",
-    "color": "#f7df1e"
+    "color": "#f1e05a"
   },
   {
-    "name": "portfolio-site",
-    "description": "Personal portfolio website with cyberpunk aesthetics, deployed on IPFS via ENS.",
-    "language": "TypeScript",
+    "name": "Betting-Agent",
+    "description": "No description",
+    "url": "https://github.com/axatbhardwaj/Betting-Agent",
     "stars": 0,
-    "url": "https://github.com/axatbhardwaj/portfolio-site",
-    "color": "#3178c6"
+    "language": "Python",
+    "color": "#3572A5"
   }
 ]
