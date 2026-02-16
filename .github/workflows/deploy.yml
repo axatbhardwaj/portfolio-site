@@ -64,8 +64,8 @@ jobs:
           sleep 30
 
           # List all pinned files with "portfolio-" prefix
-          PINS=$(curl -s -X GET \
-            "https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=portfolio-&pageLimit=1000" \
+          PINS=$(curl -s -g -X GET \
+            "https://api.pinata.cloud/data/pinList?status=pinned&metadata%5Bname%5D=portfolio-&pageLimit=1000" \
             -H "pinata_api_key: $PINATA_API_KEY" \
             -H "pinata_secret_api_key: $PINATA_SECRET_KEY")
 
