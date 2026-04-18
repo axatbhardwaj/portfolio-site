@@ -62,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${geistMono.variable} ${spaceGrotesk.variable} antialiased min-h-screen font-mono bg-[#050508] text-foreground`}
+        className={`${geistMono.variable} ${spaceGrotesk.variable} antialiased min-h-screen font-mono bg-background-body text-foreground`}
       >
         {/* Main Container */}
         <div className="relative min-h-screen">
