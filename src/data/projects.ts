@@ -2,6 +2,44 @@ import { DetailedProjectProps } from "@/components/detailed-project-card"
 
 export const projects: DetailedProjectProps[] = [
   {
+    title: "Stealth Addresses on Base",
+    role: "Blockchain Engineer",
+    period: "Feb 2026 – present",
+    description: "Production stealth-payment flow for defi.com — ERC-5564 announcements with ZeroDev Kernel single-UserOp claims and Aave auto-forward via ERC-7579 modules. Shipped end-to-end on Base mainnet, backed by a Ponder-indexed announcement subgraph.",
+    achievements: [
+      "Built the stealth-address SDK (ECDH key derivation, announce encoding, view-tag filtered scanning) plus the Kernel integration bundling Kernel deploy + module install + Aave forward into one UserOp.",
+      "Fixed ERC-7528 native-ETH sentinel classification end-to-end across SDK, Ponder indexer, and three frontend scanners — unblocked live native-ETH stealth sends on Base mainnet.",
+      "Replaced chunked RPC log-polling with a Ponder subgraph (GraphQL + relay pagination) for ERC-5564 announcements; inbox auto-scans every 30s.",
+      "Drove the nlayer-env deploy train across 20+ production promotions and set up matrix-parallelized CI with cargo-chef Docker caching (21 min cold → 8–10 min warm)."
+    ],
+    techStack: ["Base", "ERC-5564", "ZeroDev Kernel", "ERC-4337", "ERC-7579", "Ponder", "Svelte", "Viem"],
+    impactStats: [
+      { label: "Chain", value: "Base" },
+      { label: "Standards", value: "5564 · 7579" }
+    ],
+    href: "https://defi.com/",
+    isSpotlight: true
+  },
+  {
+    title: "Rust Backend + Azure Infrastructure",
+    role: "Blockchain Engineer",
+    period: "Feb 2026 – Apr 2026",
+    description: "Ported passkey-server and fiat-server from TypeScript to Rust/Axum with a TS↔Rust parity test harness, then provisioned a complete 114-resource Azure staging environment via OpenTofu.",
+    achievements: [
+      "Migrated two Node.js services to Rust/Axum with 47 passing parity tests (unit, integration, security, smoke).",
+      "Provisioned 114 Azure resources via OpenTofu — App Gateway WAF v2, APIM, PostgreSQL, Redis, Service Bus, Container Apps, ACR, Key Vault — with zero Terraform drift.",
+      "Implemented webhook-driven state caching for Iron fiat onramp (v0.6): DB-first read-through with write-invalidate, D-22 error classification, D-01 pagination parity.",
+      "Hardened during migration: overflow-safe challenge TTL, webhook payload validation before DB, conflict-safe onboarding to eliminate race conditions."
+    ],
+    techStack: ["Rust", "Axum", "SQLx", "PostgreSQL", "Redis", "OpenTofu", "Azure", "GitHub Actions"],
+    impactStats: [
+      { label: "Azure Resources", value: "114" },
+      { label: "Parity Tests", value: "47" }
+    ],
+    href: "https://defi.com/",
+    isSpotlight: true
+  },
+  {
     title: "AI Agent - meme-ooorr",
     role: "Core Contributor",
     period: "Nov 2024 – present",

@@ -40,8 +40,8 @@ export function Header() {
                 <span className="px-3 py-1 rounded-full bg-[#00ff41]/[0.08] text-[#00ff41] text-[10px] border border-[#00ff41]/15 tracking-wide">
                   Delhi, India
                 </span>
-                <a href="https://www.valory.xyz/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 rounded-full bg-[#00d4ff]/[0.08] text-[#00d4ff] text-[10px] border border-[#00d4ff]/15 hover:bg-[#00d4ff]/15 transition-all tracking-wide">
-                  @Valory
+                <a href="https://defi.com/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 rounded-full bg-[#00d4ff]/[0.08] text-[#00d4ff] text-[10px] border border-[#00d4ff]/15 hover:bg-[#00d4ff]/15 transition-all tracking-wide">
+                  @defi.com
                 </a>
                 <span className="px-3 py-1 rounded-full bg-white/[0.03] text-[#666] text-[10px] border border-white/[0.05] tracking-wide">
                   4+ years

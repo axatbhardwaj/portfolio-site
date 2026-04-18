@@ -11,20 +11,20 @@ import { ChevronRight } from "lucide-react"
 
 const workItems: Item[] = [
   {
+    title: "defi.com",
+    role: "Blockchain Engineer",
+    period: "feb 2026 - present",
+    description:
+      "Shipped stealth-address flow end-to-end on Base mainnet: ERC-5564 scanning, ZeroDev Kernel single-UserOp claim, Aave auto-forward via ERC-7579. Ported passkey-server and fiat-server from TypeScript to Rust/Axum. Provisioned 114-resource Azure staging via OpenTofu.",
+    href: "https://defi.com/",
+  },
+  {
     title: "Valory",
     role: "Python Engineer",
-    period: "jul 2025 - present",
+    period: "oct 2024 - feb 2026",
     description:
       "Core contributor to meme-ooorr AI agent framework. Built and deployed 10+ subgraphs across 8+ networks. Developed custom Mech tools for on-chain AI task execution.",
     href: "https://www.valory.xyz/",
-  },
-  {
-    title: "Freelancer",
-    role: "Sr. Blockchain Engineer",
-    period: "oct 2024 - jul 2025",
-    description:
-      "Led a team of 5 to deploy an L3 rollup on Base using OP-stack. Developed 6 smart contracts for stablecoins, multi-sig vaults. Built backend handling 4,000+ daily transactions.",
-    href: "https://www.ibi.cash/",
   },
   {
     title: "Infrablok",
