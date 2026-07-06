@@ -24,27 +24,19 @@
     "color": "#AA6746"
   },
   {
-    "name": "bodhi",
-    "description": "Decentralized AI for everyone",
-    "url": "https://github.com/axatbhardwaj/bodhi",
-    "stars": 1,
-    "language": "TypeScript",
-    "color": "#3178c6"
-  },
-  {
-    "name": "arbitrage-bot",
-    "description": "A simple aribtrage Bot ",
-    "url": "https://github.com/axatbhardwaj/arbitrage-bot",
-    "stars": 1,
-    "language": "JavaScript",
-    "color": "#f1e05a"
-  },
-  {
     "name": "Betting-Agent",
     "description": "No description",
     "url": "https://github.com/axatbhardwaj/Betting-Agent",
     "stars": 0,
     "language": "Python",
     "color": "#3572A5"
+  },
+  {
+    "name": "Dvandva",
+    "description": "Dvandva baton protocol skills for Claude Code and Codex",
+    "url": "https://github.com/axatbhardwaj/Dvandva",
+    "stars": 1,
+    "language": "Rust",
+    "color": "#dea584"
   }
 ]
