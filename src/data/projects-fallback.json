@@ -33,10 +33,10 @@
   },
   {
     "name": "Dvandva",
-    "description": "Dvandva baton protocol skills for Claude Code and Codex",
+    "description": "Archived — historical learning experiment in agent loops, harnesses, subagents, review gates, and multi-agent coordination.",
     "url": "https://github.com/axatbhardwaj/Dvandva",
     "stars": 1,
-    "language": "Shell",
-    "color": "#89e051"
+    "language": "Rust",
+    "color": "#dea584"
   }
 ]
