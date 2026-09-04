@@ -1,34 +1,18 @@
 import Link from "next/link"
 import { ArrowUpRight, Zap } from "lucide-react"
 
-export type ImpactStat = {
-  label: string
-  value: string
-}
+import type { Project } from "@/data/projects"
 
-export type DetailedProjectProps = {
-  title: string
-  role: string
-  period: string
-  description: string
-  achievements: string[]
-  techStack: string[]
-  impactStats?: ImpactStat[]
-  href: string
-  isSpotlight?: boolean
-  index?: number
-}
+export type DetailedProjectProps = Project & { index?: number }
 
 export function DetailedProjectCard({
   title,
-  role,
   period,
   description,
   achievements,
   techStack,
-  impactStats,
   href,
-  isSpotlight = false,
+  featured = false,
   index,
 }: DetailedProjectProps) {
   return (
@@ -53,7 +37,7 @@ export function DetailedProjectCard({
                 {title}
                 <ArrowUpRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
               </Link>
-              {isSpotlight && (
+              {featured && (
                 <span className="inline-flex items-center gap-1.5 text-xs bg-[#00ff41]/10 text-[#00ff41] px-2.5 py-1 rounded border border-[#00ff41]/30 font-normal">
                   <Zap className="w-3 h-3" />
                   Spotlight
@@ -61,27 +45,9 @@ export function DetailedProjectCard({
               )}
             </h3>
 
-            <div className="flex items-center gap-2 text-[10px] text-[#555]">
-              <span>{role}</span>
-              <span className="w-0.5 h-0.5 rounded-full bg-[#333]" />
-              <span>{period}</span>
-            </div>
+            <div className="text-[10px] text-[#555]">{period}</div>
           </div>
 
-          {impactStats && impactStats.length > 0 && (
-            <div className="flex gap-4 sm:gap-6">
-              {impactStats.map((stat, idx) => (
-                <div key={idx} className="text-right">
-                  <div className="text-lg font-bold text-[#00ff41] heading-font" style={{ textShadow: "0 0 15px rgba(0,255,65,0.15)" }}>
-                    {stat.value}
-                  </div>
-                  <div className="text-[8px] text-[#444] uppercase tracking-[0.15em]">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         <div className="mb-6">
