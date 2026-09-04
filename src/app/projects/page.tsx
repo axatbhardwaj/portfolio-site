@@ -23,7 +23,7 @@ export default function ProjectsPage() {
         </div>
 
         <p className="text-[#666] text-sm leading-relaxed max-w-2xl">
-          A deep dive into some of the most complex and impactful systems I've
+          A deep dive into some of the most complex and impactful systems I&apos;ve
           engineered. From Layer 3 rollups to autonomous AI agents.
         </p>
 
