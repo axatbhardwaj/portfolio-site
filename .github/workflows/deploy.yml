@@ -50,6 +50,35 @@ jobs:
             "ipfs pin add --progress=false /ipfs/${{ steps.pinata.outputs.hash }} && \
              ipfs name publish --resolve=false --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
 
+      - name: Warm the eth.limo gateway cache
+        env:
+          CID: ${{ steps.pinata.outputs.hash }}
+        run: |
+          # eth.limo answers 504 "Content Unreachable" on the first request for
+          # each path of a fresh CID while its backend fetches the blocks. Crawl
+          # every file once (with retries) so visitors never see that window.
+          HOST=https://axatbhardwaj.eth.limo
+          echo "Waiting for eth.limo to resolve the new CID..."
+          for i in $(seq 1 40); do
+            ROOT=$(curl -s -D - -o /dev/null --max-time 30 "$HOST/?warm=$i" | tr -d '\r' | awk 'tolower($1)=="x-ipfs-roots:"{print $2}')
+            [ "$ROOT" = "$CID" ] && { echo "resolved after $i attempts"; break; }
+            sleep 15
+          done
+          [ "$ROOT" = "$CID" ] || echo "::warning::eth.limo still serving $ROOT, crawling anyway"
+          cd out
+          find . -type f | sed 's|^\./||; s|/index\.html$|/|; s|^index\.html$||' | sort -u > /tmp/paths.txt
+          echo "warming $(wc -l < /tmp/paths.txt) paths"
+          warm() {
+            for try in 1 2 3 4 5 6; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 40 "$HOST/$1")
+              [ "$code" = "200" ] && { echo "200 /$1"; return 0; }
+              sleep 5
+            done
+            echo "::warning::$code /$1 after 6 tries"; return 0
+          }
+          export -f warm; export HOST
+          xargs -a /tmp/paths.txt -P 6 -I{} bash -c 'warm "$@"' _ {}
+
       - name: Unpin old deployments
         env:
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
@@ -68,9 +97,11 @@ jobs:
             -H "pinata_api_key: $PINATA_API_KEY" \
             -H "pinata_secret_api_key: $PINATA_SECRET_KEY")
 
-          # Extract CIDs of old pins (exclude current deployment)
+          # Keep the newest previous deployment pinned so pages cached by
+          # gateways or browsers during the switch-over still find their
+          # chunks. Unpin everything older than that.
           OLD_CIDS=$(echo "$PINS" | jq -r --arg current "$CURRENT_CID" \
-            '.rows[] | select(.ipfs_pin_hash != $current) | .ipfs_pin_hash')
+            '[.rows[] | select(.ipfs_pin_hash != $current)] | sort_by(.date_pinned) | reverse | .[1:] | .[].ipfs_pin_hash')
 
           if [ -z "$OLD_CIDS" ]; then
             echo "No old pins to clean up"
