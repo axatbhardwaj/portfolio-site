@@ -1,93 +1,79 @@
-import Link from "next/link"
-import { Header } from "@/components/header"
-import { Item, SectionList } from "@/components/section-list"
-import { BlogSection } from "@/components/blog-section"
-import { LinksSection } from "@/components/links-section"
-import { SpotlightShowcase } from "@/components/spotlight-showcase"
-import { GitHubActivity } from "@/components/github-activity"
-import { GitHubProjects } from "@/components/github-projects"
-import { spotlightProjects } from "@/data/projects"
-import { ChevronRight } from "lucide-react"
+import { Section } from "@/components/section"
+import { WorkList, type WorkItem } from "@/components/work-list"
+import { ProjectList } from "@/components/project-list"
+import { PostList } from "@/components/post-list"
+import { featuredProjects } from "@/data/projects"
+import { getPosts } from "@/lib/blog"
 
-const workItems: Item[] = [
+const work: WorkItem[] = [
   {
-    title: "defi.com",
+    company: "defi.com",
     role: "Blockchain Engineer",
     period: "feb 2026 - present",
     description:
-      "Shipped stealth-address flow end-to-end on Base mainnet: ERC-5564 scanning, ZeroDev Kernel single-UserOp claim, Aave auto-forward via ERC-7579. Ported passkey-server and fiat-server from TypeScript to Rust/Axum. Provisioned 114-resource Azure staging via OpenTofu.",
+      "Shipped an ERC-5564 stealth-address flow on Base mainnet and ported two Node services to Rust.",
     href: "https://defi.com/",
   },
   {
-    title: "Valory",
+    company: "Valory",
     role: "Python Engineer",
     period: "oct 2024 - feb 2026",
     description:
-      "Core contributor to meme-ooorr AI agent framework. Built and deployed 10+ subgraphs across 8+ networks. Developed custom Mech tools for on-chain AI task execution.",
+      "Core contributor to the meme-ooorr agent framework and maintainer of subgraphs across 8+ networks.",
     href: "https://www.valory.xyz/",
   },
   {
-    title: "Infrablok",
+    company: "Infrablok",
     role: "Software Engineer - Blockchain",
     period: "nov 2022 - oct 2024",
     description:
-      "Led blockchain infrastructure for enterprise clients. Maintained Ethereum Archive node with 100% uptime. Developed 9 smart contracts for supply chain management.",
+      "Led blockchain infrastructure for enterprise clients, including an Ethereum archive node and 9 supply-chain contracts.",
     href: "https://infrablok.com/",
   },
   {
-    title: "Solulab",
+    company: "Solulab",
     role: "Blockchain Developer",
     period: "jun 2021 - nov 2022",
     description:
-      "Optimized EVM contracts reducing gas fees by 40%, saving $10,000+ yearly. Worked on 30+ smart contracts. Mentored 11 junior blockchain developers.",
+      "Optimised EVM contracts to cut gas 40% across 30+ contracts and mentored 11 junior developers.",
     href: "https://www.solulab.com/",
   },
 ]
 
 export default function HomePage() {
+  const posts = getPosts()
+    .sort((a, b) => new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime())
+    .slice(0, 3)
+
   return (
-    <div className="space-y-20">
-      <Header />
-
-      {/* Spotlight Projects Section */}
-      <section className="animate-fade-in-up">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-1.5 h-6 rounded-full bg-[#00ff41]" style={{ boxShadow: "0 0 10px rgba(0,255,65,0.3)" }} />
-            <h2 className="text-xl font-bold text-white heading-font tracking-tight">selected work</h2>
-          </div>
-          <Link href="/projects" className="flex items-center gap-1.5 text-[11px] text-[#555] hover:text-[#00ff41] transition-colors">
-            View all <ChevronRight className="w-3 h-3" />
-          </Link>
-        </div>
-        <SpotlightShowcase projects={spotlightProjects} />
-      </section>
-
-      {/* Latest Projects Section */}
-      <section className="animate-fade-in-up">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-1.5 h-6 rounded-full bg-[#00ff41]" style={{ boxShadow: "0 0 10px rgba(0,255,65,0.3)" }} />
-            <h2 className="text-xl font-bold text-white heading-font tracking-tight">latest projects</h2>
-          </div>
-          <a href="https://github.com/axatbhardwaj" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[11px] text-[#555] hover:text-[#00ff41] transition-colors">
-            View all <ChevronRight className="w-3 h-3" />
+    <>
+      <section>
+        <h1 className="text-[28px]">Axat Bhardwaj</h1>
+        <p className="mt-3 text-fg-muted">
+          Software engineer. Five years building backend systems and smart contracts, currently at{" "}
+          <a
+            href="https://defi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-fg-strong underline decoration-fg-dim underline-offset-4 hover:text-accent hover:decoration-accent"
+          >
+            defi.com
           </a>
-        </div>
-        <GitHubProjects />
+          .
+        </p>
       </section>
 
-      {/* GitHub Contributions */}
-      <GitHubActivity />
+      <Section label="Work">
+        <WorkList items={work} />
+      </Section>
 
-      {/* Work History */}
-      <SectionList title="work" items={workItems} />
+      <Section label="Projects" link={{ label: "all projects", href: "/projects" }}>
+        <ProjectList projects={featuredProjects.slice(0, 4)} />
+      </Section>
 
-      {/* Blog */}
-      <BlogSection />
-
-      {/* Links */}
-      <LinksSection />
-    </div>
+      <Section label="Writing" link={{ label: "all posts", href: "/blog" }}>
+        <PostList posts={posts} />
+      </Section>
+    </>
   )
 }
