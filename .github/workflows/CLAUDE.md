@@ -4,6 +4,6 @@ GitHub Actions workflow definitions.
 
 ## Files
 
-| File               | What                                        | When to read                                                         |
-| ------------------ | ------------------------------------------- | -------------------------------------------------------------------- |
-| `update-stats.yml` | Daily GitHub contribution stats auto-update | Modifying schedule, debugging workflow, changing commit behavior     |
+| File         | What                                    | When to read                                   |
+| ------------ | --------------------------------------- | ---------------------------------------------- |
+| `deploy.yml` | Build static site and pin to IPFS       | Modifying deploy steps, debugging IPFS publish |

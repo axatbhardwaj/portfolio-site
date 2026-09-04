@@ -1,9 +1,7 @@
 # scripts/
 
-Automation scripts for the portfolio site.
+## Directories
 
-## Files
-
-| File             | What                                          | When to read                                                     |
-| ---------------- | --------------------------------------------- | ---------------------------------------------------------------- |
-| `fetch-stats.sh` | GitHub GraphQL query for contribution stats   | Modifying stats query, debugging GitHub API, changing output format |
+| Directory | What                                   | When to read                        |
+| --------- | -------------------------------------- | ----------------------------------- |
+| `ipfs/`   | Manual IPFS publish helpers            | Publishing outside GitHub Actions   |

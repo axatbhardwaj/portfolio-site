@@ -6,9 +6,9 @@ Next.js App Router pages and layouts.
 
 | File           | What                                 | When to read                                                        |
 | -------------- | ------------------------------------ | ------------------------------------------------------------------- |
-| `layout.tsx`   | Root layout, metadata, fonts, navbar | Modifying site-wide layout, meta tags, global styles                |
-| `page.tsx`     | Homepage with all sections           | Modifying homepage content, adding/removing sections                |
-| `globals.css`  | Global Tailwind styles               | Adding global CSS, modifying base styles                            |
+| `layout.tsx`   | Root layout, metadata, Geist fonts, navbar, footer | Modifying site-wide layout, meta tags                  |
+| `page.tsx`     | Home: intro, work data, featured projects, latest posts | Modifying homepage content or work entries     |
+| `globals.css`  | Design tokens, base styles, prose overrides | Changing colours, fonts, or MDX prose styling             |
 | `not-found.tsx`| 404 error page                       | Modifying 404 page                                                  |
 
 ## Directories
