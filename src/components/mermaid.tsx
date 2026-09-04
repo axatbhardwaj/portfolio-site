@@ -7,18 +7,19 @@ mermaid.initialize({
   startOnLoad: false,
   theme: "dark",
   themeVariables: {
-    primaryColor: "#1a1a2e",
-    primaryTextColor: "#00ff41",
-    primaryBorderColor: "#00ff41",
-    lineColor: "#00ff41",
-    secondaryColor: "#0d0d1a",
-    tertiaryColor: "#1a1a2e",
-    background: "#0d0d1a",
-    mainBkg: "#1a1a2e",
-    nodeBorder: "#00ff41",
-    clusterBkg: "#0d0d1a",
-    edgeLabelBackground: "#0d0d1a",
-    textColor: "#e0e0e0",
+    primaryColor: "#171717",
+    primaryTextColor: "#e5e5e5",
+    primaryBorderColor: "#404040",
+    lineColor: "#737373",
+    secondaryColor: "#0f0f0f",
+    tertiaryColor: "#171717",
+    background: "#0a0a0a",
+    mainBkg: "#171717",
+    nodeBorder: "#404040",
+    clusterBkg: "#0f0f0f",
+    edgeLabelBackground: "#0a0a0a",
+    textColor: "#e5e5e5",
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   },
   flowchart: {
     htmlLabels: true,
@@ -54,7 +55,7 @@ export function Mermaid({ chart }: MermaidProps) {
 
   if (error) {
     return (
-      <div className="p-4 border border-red-500/30 rounded-lg bg-red-500/10 text-red-400 font-mono text-sm">
+      <div className="my-6 font-mono text-[13px] text-fg-muted">
         Mermaid Error: {error}
       </div>
     )

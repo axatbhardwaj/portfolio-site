@@ -81,10 +81,7 @@ async function Pre({
 
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
-      themes: {
-        dark: "vesper",
-        light: "vitesse-light",
-      },
+      theme: "vesper",
     })
 
     return <div dangerouslySetInnerHTML={{ __html: html }} />
