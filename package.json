@@ -14,15 +14,12 @@
     "@vercel/analytics": "^1.5.0",
     "babel-plugin-react-compiler": "^19.0.0-beta-a7bf2bd-20241110",
     "date-fns": "^4.1.0",
-    "lucide-react": "^0.456.0",
     "mermaid": "^11.12.2",
     "next": "15.0.3",
     "next-mdx-remote": "^5.0.0",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-activity-calendar": "^3.0.5",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "shiki": "^1.22.2",
-    "use-scramble": "^2.2.15"
+    "shiki": "^1.22.2"
   },
   "devDependencies": {
     "@types/node": "^20",

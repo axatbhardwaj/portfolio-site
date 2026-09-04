@@ -21,11 +21,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Fetch GitHub stats
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: bash scripts/fetch-stats.sh
-
       - name: Build static site
         run: bun run build
 
