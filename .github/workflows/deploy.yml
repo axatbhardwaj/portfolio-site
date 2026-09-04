@@ -33,7 +33,7 @@ jobs:
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
 
-      - name: Update IPNS
+      - name: Pin on server and update IPNS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
@@ -43,8 +43,12 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts 2>/dev/null
+          # Pin on the server first so it provides the blocks alongside Pinata;
+          # publishing an IPNS record for content the node does not hold leaves
+          # public gateways dependent on Pinata alone and they time out.
           ssh -o StrictHostKeyChecking=accept-new $SERVER_USER@$SERVER_HOST \
-            "ipfs name publish --resolve=false --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
+            "ipfs pin add --progress=false /ipfs/${{ steps.pinata.outputs.hash }} && \
+             ipfs name publish --resolve=false --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }}"
 
       - name: Unpin old deployments
         env:
