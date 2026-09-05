@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className="min-w-0">
           <h1 className="text-[28px]">Axat Bhardwaj</h1>
           <p className="mt-3 text-fg-muted">
-            Founding engineer at{" "}
+            Founding Engineer at{" "}
             <a
               href="https://defi.com/"
               target="_blank"
@@ -98,7 +98,10 @@ export default function HomePage() {
             >
               defi.com
             </a>
-            {" "}with 5+ years building web3 products and backend systems, and 2+ years
+            {" "}| Backend &amp; smart contracts
+          </p>
+          <p className="mt-3 text-fg-muted">
+            5+ years building web3 products and backend systems, and 2+ years
             building AI agents. I work across multichain wallets, passkeys, Rust services,
             infrastructure, and engineering automation.
           </p>
