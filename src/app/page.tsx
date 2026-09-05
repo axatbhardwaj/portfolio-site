@@ -36,10 +36,10 @@ const skills = [
 const work: WorkItem[] = [
   {
     company: "defi.com",
-    role: "Smart Contracts and Backend Engineer",
+    role: "Founding Full-Stack Engineer",
     period: "feb 2026 - present",
     description:
-      "Built defi.com’s multichain wallet core, from account creation and authentication to transactions and recovery, alongside AI code-review infrastructure and Rust services.",
+      "Built defi.com’s multichain wallet core and established its frontend, Rust backend, Azure infrastructure, and AI-assisted engineering systems from scratch.",
     href: "https://defi.com/",
   },
   {
@@ -89,8 +89,7 @@ export default function HomePage() {
         <div className="min-w-0">
           <h1 className="text-[28px]">Axat Bhardwaj</h1>
           <p className="mt-3 text-fg-muted">
-            Software engineer with 5+ years building backend systems and smart contracts,
-            and 2+ years building AI agents. Currently at{" "}
+            Founding full-stack engineer at{" "}
             <a
               href="https://defi.com/"
               target="_blank"
@@ -99,7 +98,9 @@ export default function HomePage() {
             >
               defi.com
             </a>
-            , working on multichain wallets, passkeys, and Rust services.
+            {" "}with 5+ years building web3 products and backend systems, and 2+ years
+            building AI agents. I work across multichain wallets, passkeys, Rust services,
+            infrastructure, and engineering automation.
           </p>
         </div>
       </section>
