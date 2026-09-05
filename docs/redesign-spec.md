@@ -208,3 +208,11 @@ muted text tokens with natural wrapping. No proficiency ratings or badges.
 Order the homepage as Intro, Work, Projects, Skills, Writing, Education.
 Projects precede Skills to foreground delivered work; Education comes last.
 Include RAG in the AI agents skill group.
+
+## Founding full-stack positioning (approved 2026-09-06)
+
+- Present the defi.com role as "Founding Full-Stack Engineer".
+- State that the multichain wallet core, frontend, Rust backend, Azure
+  infrastructure, and AI-assisted engineering systems were established from
+  scratch.
+- Use "founding full-stack engineer" in the homepage introduction and metadata.
