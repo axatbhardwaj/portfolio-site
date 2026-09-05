@@ -129,7 +129,16 @@ export default function HomePage() {
       </Section>
 
       <Section label="Education">
-        <p className="text-fg-strong">Inderprastha Engineering College</p>
+        <p>
+          <a
+            href="https://www.ipec.org.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-fg-strong underline decoration-fg-dim underline-offset-4 hover:text-accent hover:decoration-accent"
+          >
+            Inderprastha Engineering College
+          </a>
+        </p>
         <p className="mt-1 text-fg-muted">B.Tech., Information Technology</p>
         <p className="mt-1 font-mono text-[13px] text-fg-dim">2017 - 2021</p>
       </Section>
