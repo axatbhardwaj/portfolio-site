@@ -10,16 +10,30 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Stealth Addresses on Base",
-    period: "Feb 2026 – present",
-    description: "Production stealth-payment flow for defi.com — ERC-5564 announcements with ZeroDev Kernel single-UserOp claims and Aave auto-forward via ERC-7579 modules. Shipped end-to-end on Base mainnet, backed by a Ponder-indexed announcement subgraph.",
+    title: "Multichain Wallet Core",
+    period: "Jul 2026 – present",
+    description: "Built defi.com’s wallet core: passkey-based smart accounts, deployment across Ethereum, Base, and Tempo, transaction execution, and account recovery — connecting the frontend, shared SDKs, and Rust services.",
     achievements: [
-      "Built the stealth-address SDK (ECDH key derivation, announce encoding, view-tag filtered scanning) plus the Kernel integration bundling Kernel deploy + module install + Aave forward into one UserOp.",
-      "Fixed ERC-7528 native-ETH sentinel classification end-to-end across SDK, Ponder indexer, and three frontend scanners — unblocked live native-ETH stealth sends on Base mainnet.",
-      "Replaced chunked RPC log-polling with a Ponder subgraph (GraphQL + relay pagination) for ERC-5564 announcements; inbox auto-scans every 30s.",
-      "Drove the nlayer-env deploy train across 20+ production promotions and set up matrix-parallelized CI with cargo-chef Docker caching (21 min cold → 8–10 min warm)."
+      "Built the account foundation around a single passkey and a consistent smart-account address across three chains, with deployment orchestration and resumable retries.",
+      "Implemented guardian-authorized recovery and on-chain passkey rotation, backed by server-verified chain evidence, atomic credential replacement, and session invalidation.",
+      "Hardened sends against duplicate submissions across browser tabs, interrupted sessions, and uncertain network responses using durable records and receipt verification.",
+      "Separated signup from recovery setup, adding contextual backup prompts and same-session continuation after protection is configured.",
+      "Built an isolated three-chain recovery harness; the August 2026 mainnet walkthrough verified deployment, arming, and recovery on Ethereum, Base, and Tempo."
     ],
-    techStack: ["Base", "ERC-5564", "ZeroDev Kernel", "ERC-4337", "ERC-7579", "Ponder", "Svelte", "Viem"],
+    techStack: ["TypeScript", "Svelte", "Rust", "Axum", "WebAuthn", "ZeroDev Kernel", "ERC-4337", "PostgreSQL"],
+    href: "https://defi.com/",
+    featured: true
+  },
+  {
+    title: "AI Code-Review Infrastructure",
+    period: "Jul 2026 – Aug 2026",
+    description: "Built and hardened defi.com’s AI review system with isolated execution, read-only model credentials, and gateway-enforced review and merge permissions.",
+    achievements: [
+      "Moved GitHub review writes and merge authority out of the model sandbox into a gateway that verifies the target PR, current commit, required checks, and human merge authorization.",
+      "Added review commands, per-PR concurrency controls, execution budgets, and status reporting for interrupted or failed jobs.",
+      "Isolated gateway enforcement state from model-writable storage and added automated agent-suite checks to CI."
+    ],
+    techStack: ["Python", "AI Agents", "GitHub Apps", "Azure Container Apps", "Docker", "GitHub Actions"],
     href: "https://defi.com/",
     featured: true
   },
@@ -52,6 +66,19 @@ export const projects: Project[] = [
     featured: true
   },
   {
+    title: "Stealth Addresses on Base",
+    period: "Feb 2026 – Jul 2026",
+    description: "Built a stealth-payment flow for defi.com — ERC-5564 announcements with ZeroDev Kernel single-UserOp claims and Aave auto-forward via ERC-7579 modules. Shipped end-to-end on Base mainnet, backed by a Ponder-indexed announcement subgraph.",
+    achievements: [
+      "Built the stealth-address SDK (ECDH key derivation, announce encoding, view-tag filtered scanning) plus the Kernel integration bundling Kernel deploy + module install + Aave forward into one UserOp.",
+      "Fixed ERC-7528 native-ETH sentinel classification end-to-end across SDK, Ponder indexer, and three frontend scanners — unblocked live native-ETH stealth sends on Base mainnet.",
+      "Replaced chunked RPC log-polling with a Ponder subgraph (GraphQL + relay pagination) for ERC-5564 announcements; added inbox auto-scanning every 30 seconds.",
+      "Drove the nlayer-env deploy train across 20+ production promotions and set up matrix-parallelized CI with cargo-chef Docker caching (21 min cold → 8–10 min warm)."
+    ],
+    techStack: ["Base", "ERC-5564", "ZeroDev Kernel", "ERC-4337", "ERC-7579", "Ponder", "Svelte", "Viem"],
+    href: "https://defi.com/",
+  },
+  {
     title: "L3 Rollup on Base",
     period: "Sep 2024 – Nov 2024",
     description: "A custom Layer 3 rollup deployment built on Base (L2) using the OP Stack, designed to optimize transaction costs and data availability for specialized stablecoin applications.",
@@ -62,7 +89,6 @@ export const projects: Project[] = [
     ],
     techStack: ["OP Stack", "Solidity", "Base L2", "Smart Contracts", "Go"],
     href: "https://lydiacoins.com/",
-    featured: true
   },
   {
     title: "Autonolas Subgraphs Studio",

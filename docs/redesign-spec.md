@@ -179,3 +179,19 @@ mobile (375px) and desktop (1280px) before marking ready.
   though they are async. Client JS is limited to the Next runtime, analytics,
   the nav active-state child, and mermaid on posts.
 - Site builds to `/out` and the IPFS deploy workflow is unchanged.
+
+## Portfolio content update (approved 2026-09-05)
+
+- Lead with ownership of defi.com’s multichain wallet core: account creation,
+  authentication, deployment, transactions, and recovery.
+- Feature Multichain Wallet Core, AI Code-Review Infrastructure, Rust Backend
+  + Azure Infrastructure, and AI Agent - meme-ooorr. Keep earlier stealth
+  work on the full projects page in past tense, dated through July 2026.
+- Add the supplied portrait to the introduction: 144px rounded square,
+  framed with CSS, above the text on mobile and beside it on desktop.
+- Add Education after Work: Inderprastha Engineering College, B.Tech.,
+  Information Technology, 2017–2021. School education remains off the homepage.
+- Align roles and dates with the supplied LinkedIn PDF: Valory starts November
+  2024, Infrablok ends September 2024, and SoluLab distinguishes the internship
+  from full-time work. Preserve the existing visual tokens and static export.
+- Stack work/project dates beneath titles on mobile to accommodate longer text.
