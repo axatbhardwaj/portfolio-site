@@ -209,10 +209,13 @@ Order the homepage as Intro, Work, Projects, Skills, Writing, Education.
 Projects precede Skills to foreground delivered work; Education comes last.
 Include RAG in the AI agents skill group.
 
-## Founding full-stack positioning (approved 2026-09-06)
+## Official title and founding-team positioning (corrected 2026-09-06)
 
-- Present the defi.com role as "Founding Full-Stack Engineer".
+- Present the official defi.com title first as "Full-Stack Engineer", followed
+  by "Founding Engineering Team".
 - State that the multichain wallet core, frontend, Rust backend, Azure
   infrastructure, and AI-assisted engineering systems were established from
   scratch.
-- Use "founding full-stack engineer" in the homepage introduction and metadata.
+- Describe Axat as a full-stack engineer on the founding engineering team in
+  the homepage introduction and metadata. Do not present "Founding Engineer"
+  as the official HR title.
