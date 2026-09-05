@@ -3,7 +3,7 @@ import { projects } from "@/data/projects"
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Systems I have built: stealth payments, rollups, agents, infrastructure.",
+  description: "Systems I have built: multichain wallets, AI agents, Rust backends, and infrastructure.",
 }
 
 export default function ProjectsPage() {
@@ -17,7 +17,7 @@ export default function ProjectsPage() {
       <ul className="mt-12 space-y-12">
         {projects.map((project) => (
           <li key={project.title}>
-            <div className="flex items-baseline justify-between gap-4">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
               <h2 className="text-[17px]">
                 <a
                   href={project.href}

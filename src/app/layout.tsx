@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     default: "Axat Bhardwaj",
     template: "%s | Axat Bhardwaj",
   },
-  description: "Software engineer. Backend systems and smart contracts.",
+  description: "Software engineer building multichain wallets, Rust backends, and AI agents.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Axat Bhardwaj",
-    description: "Software engineer. Backend systems and smart contracts.",
+    description: "Software engineer building multichain wallets, Rust backends, and AI agents.",
     url: "https://axatbhardwaj.eth.limo",
     siteName: "Axat Bhardwaj",
     locale: "en_US",

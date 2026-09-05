@@ -11,7 +11,7 @@ export function WorkList({ items }: { items: WorkItem[] }) {
     <ul className="space-y-6">
       {items.map((item) => (
         <li key={item.company}>
-          <div className="flex items-baseline justify-between gap-4">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
             <p>
               <a
                 href={item.href}
