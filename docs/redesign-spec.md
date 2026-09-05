@@ -202,3 +202,9 @@ Add Skills between Work and Education as six plain definition-list groups:
 EVM & smart contracts, Wallets & identity, Backend & system design,
 Blockchain data, AI agents, and Infrastructure. Use the existing strong and
 muted text tokens with natural wrapping. No proficiency ratings or badges.
+
+## Final section order (approved 2026-09-05)
+
+Order the homepage as Intro, Work, Projects, Skills, Writing, Education.
+Projects precede Skills to foreground delivered work; Education comes last.
+Include RAG in the AI agents skill group.
