@@ -25,7 +25,7 @@ const skills = [
   },
   {
     area: "AI agents",
-    description: "Autonomous agents, tool integration, orchestration, automated review",
+    description: "Autonomous agents, RAG, tool integration, orchestration, automated review",
   },
   {
     area: "Infrastructure",
@@ -108,6 +108,10 @@ export default function HomePage() {
         <WorkList items={work} />
       </Section>
 
+      <Section label="Projects" link={{ label: "all projects", href: "/projects" }}>
+        <ProjectList projects={featuredProjects.slice(0, 4)} />
+      </Section>
+
       <Section label="Skills">
         <dl className="space-y-4">
           {skills.map((skill) => (
@@ -119,18 +123,15 @@ export default function HomePage() {
         </dl>
       </Section>
 
+
+      <Section label="Writing" link={{ label: "all posts", href: "/blog" }}>
+        <PostList posts={posts} />
+      </Section>
+
       <Section label="Education">
         <p className="text-fg-strong">Inderprastha Engineering College</p>
         <p className="mt-1 text-fg-muted">B.Tech., Information Technology</p>
         <p className="mt-1 font-mono text-[13px] text-fg-dim">2017 - 2021</p>
-      </Section>
-
-      <Section label="Projects" link={{ label: "all projects", href: "/projects" }}>
-        <ProjectList projects={featuredProjects.slice(0, 4)} />
-      </Section>
-
-      <Section label="Writing" link={{ label: "all posts", href: "/blog" }}>
-        <PostList posts={posts} />
       </Section>
     </>
   )
