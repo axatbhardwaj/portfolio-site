@@ -6,6 +6,33 @@ import { PostList } from "@/components/post-list"
 import { featuredProjects } from "@/data/projects"
 import { getPosts } from "@/lib/blog"
 
+const skills = [
+  {
+    area: "EVM & smart contracts",
+    description: "Solidity, token standards, account abstraction, modular accounts",
+  },
+  {
+    area: "Wallets & identity",
+    description: "Passkeys, WebAuthn, multichain smart accounts",
+  },
+  {
+    area: "Backend & system design",
+    description: "Rust, TypeScript, Python, APIs, PostgreSQL, Redis",
+  },
+  {
+    area: "Blockchain data",
+    description: "The Graph, GraphQL, Ponder, event indexing",
+  },
+  {
+    area: "AI agents",
+    description: "Autonomous agents, tool integration, orchestration, automated review",
+  },
+  {
+    area: "Infrastructure",
+    description: "Azure, Docker, OpenTofu, CI/CD, Linux",
+  },
+]
+
 const work: WorkItem[] = [
   {
     company: "defi.com",
@@ -79,6 +106,17 @@ export default function HomePage() {
 
       <Section label="Work">
         <WorkList items={work} />
+      </Section>
+
+      <Section label="Skills">
+        <dl className="space-y-4">
+          {skills.map((skill) => (
+            <div key={skill.area}>
+              <dt className="text-fg-strong">{skill.area}</dt>
+              <dd className="mt-1 text-fg-muted">{skill.description}</dd>
+            </div>
+          ))}
+        </dl>
       </Section>
 
       <Section label="Education">

@@ -195,3 +195,10 @@ mobile (375px) and desktop (1280px) before marking ready.
   2024, Infrablok ends September 2024, and SoluLab distinguishes the internship
   from full-time work. Preserve the existing visual tokens and static export.
 - Stack work/project dates beneath titles on mobile to accommodate longer text.
+
+## Skills section (approved 2026-09-05)
+
+Add Skills between Work and Education as six plain definition-list groups:
+EVM & smart contracts, Wallets & identity, Backend & system design,
+Blockchain data, AI agents, and Infrastructure. Use the existing strong and
+muted text tokens with natural wrapping. No proficiency ratings or badges.
