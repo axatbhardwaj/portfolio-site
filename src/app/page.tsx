@@ -25,7 +25,7 @@ const skills = [
   },
   {
     area: "AI agents",
-    description: "Autonomous agents, tool integration, orchestration, automated review",
+    description: "Autonomous agents, RAG, tool integration, orchestration, automated review",
   },
   {
     area: "Infrastructure",
