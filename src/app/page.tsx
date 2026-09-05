@@ -36,7 +36,7 @@ const skills = [
 const work: WorkItem[] = [
   {
     company: "defi.com",
-    role: "Founding Full-Stack Engineer",
+    role: "Full-Stack Engineer — Founding Engineering Team",
     period: "feb 2026 - present",
     description:
       "Built defi.com’s multichain wallet core and established its frontend, Rust backend, Azure infrastructure, and AI-assisted engineering systems from scratch.",
@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className="min-w-0">
           <h1 className="text-[28px]">Axat Bhardwaj</h1>
           <p className="mt-3 text-fg-muted">
-            Founding full-stack engineer at{" "}
+            Full-stack engineer on the founding engineering team at{" "}
             <a
               href="https://defi.com/"
               target="_blank"
