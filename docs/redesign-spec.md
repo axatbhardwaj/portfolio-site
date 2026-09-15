@@ -209,10 +209,10 @@ Order the homepage as Intro, Work, Projects, Skills, Writing, Education.
 Projects precede Skills to foreground delivered work; Education comes last.
 Include RAG in the AI agents skill group.
 
-## Founding engineer positioning (approved 2026-09-06)
+## Engineering headline positioning (updated 2026-09-15)
 
-- Use "Founding Engineer at defi.com | Backend & smart contracts" as the
-  portfolio headline and metadata, matching the X bio. Keep the experience
+- Use "Engineering @ defi.com | Backend and Smart contracts" as the
+  portfolio headline and metadata, matching the headline on X and LinkedIn. Keep the experience
   summary in a separate paragraph below the headline.
 - Keep the work-history entry grounded in the official designation as
   "Full-Stack Engineer · Founding Team".

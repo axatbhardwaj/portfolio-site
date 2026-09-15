@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     default: "Axat Bhardwaj",
     template: "%s | Axat Bhardwaj",
   },
-  description: "Founding Engineer at defi.com | Backend & smart contracts",
+  description: "Engineering @ defi.com | Backend and Smart contracts",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Axat Bhardwaj",
-    description: "Founding Engineer at defi.com | Backend & smart contracts",
+    description: "Engineering @ defi.com | Backend and Smart contracts",
     url: "https://axatbhardwaj.eth.limo",
     siteName: "Axat Bhardwaj",
     locale: "en_US",
