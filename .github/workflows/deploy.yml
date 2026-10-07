@@ -33,6 +33,14 @@ jobs:
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
 
+      - name: Connect to Tailscale
+        # The server accepts SSH only from the tailnet.
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
       - name: Update IPNS and pin on server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
