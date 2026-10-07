@@ -7,7 +7,12 @@ on:
 
 jobs:
   build-and-deploy:
+    # Tailscale only trusts main's OIDC token; skip other refs early.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Tailscale workload identity federation
 
     steps:
       - name: Checkout repository
@@ -32,23 +37,31 @@ jobs:
           path: ./out
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
+          # The action treats the string 'false' as true and logs process.env.
+          verbose: ''
+
+      - name: Connect to Tailscale
+        # The deploy SSH key works only for the restricted deploy user, over the tailnet.
+        # Keyless: Tailscale trusts this repo's GitHub OIDC token for main.
+        uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd # v4.2.0
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ secrets.TS_AUDIENCE }}
+          tags: tag:ci
+          ping: 100.80.173.45
 
       - name: Update IPNS and pin on server
+        # The deploy key is locked to a forced command on the server that only
+        # accepts a CID, publishes it to IPNS and pins it in the background.
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_USER: ${{ secrets.SERVER_USER }}
+          CID: ${{ steps.pinata.outputs.hash }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts 2>/dev/null
-          # Publish first so the IPNS record moves immediately, then pin on the
-          # server in the background so it becomes a second provider alongside
-          # Pinata. Fetching from Pinata can take many minutes; do not block on it.
-          ssh -o StrictHostKeyChecking=accept-new $SERVER_USER@$SERVER_HOST \
-            "ipfs name publish --resolve=false --key=portfolio /ipfs/${{ steps.pinata.outputs.hash }} && \
-             nohup ipfs pin add --progress=false /ipfs/${{ steps.pinata.outputs.hash }} > /tmp/portfolio-pin.log 2>&1 &"
+          echo "100.80.173.45 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINK3q+4tkGHhp6gWpyJFntwO5gLUPbzWr7Xryti8LNvH" > ~/.ssh/known_hosts
+          ssh -o StrictHostKeyChecking=yes deploy@100.80.173.45 "$CID"
 
       - name: Warm the eth.limo gateway cache
         env:
