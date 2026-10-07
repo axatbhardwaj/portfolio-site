@@ -7,6 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
+    # Tailscale only trusts main's OIDC token; skip other refs early.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,9 +37,11 @@ jobs:
           path: ./out
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_KEY }}
+          # The action treats the string 'false' as true and logs process.env.
+          verbose: ''
 
       - name: Connect to Tailscale
-        # The server accepts the deploy SSH key only over the tailnet.
+        # The deploy SSH key works only for the restricted deploy user, over the tailnet.
         # Keyless: Tailscale trusts this repo's GitHub OIDC token for main.
         uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd # v4.2.0
         with:
